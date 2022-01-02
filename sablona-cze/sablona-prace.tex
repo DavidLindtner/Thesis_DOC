@@ -164,7 +164,7 @@
 %\oddpage% při dvojstranném tisku se přidá prázdná stránka
 
 %% Vysázení stránky s abstraktem
-\makeabstract
+%\makeabstract
 
 % Vysázení stránky s rozšířeným abstraktem
 % (pokud píšete práci v češtině či slovenštině, vložení rozšířeného abstraktu zrušte;
@@ -172,13 +172,13 @@
 %\input{text/rozsireny_abstrakt}
 
 %%% Vysázení citace práce
-\makecitation
+%\makecitation
 
 %%% Vysázení prohlášení o samostatnosti
-\makedeclaration
+%\makedeclaration
 
 %%% Vysázení poděkování
-\makeacknowledgement
+%\makeacknowledgement
 
 %%% Vysázení obsahu
 \tableofcontents
@@ -189,11 +189,11 @@
 
 %%% Vysázení seznamu tabulek
 % (vynechejte, pokud máte dvě nebo méně tabulek)
-\listoftables
+%\listoftables
 
 %%% Vysázení seznamu výpisů kódu
 % (vynechejte, pokud máte dva nebo méně výpisů)
-\lstlistoflistings
+%\lstlistoflistings
 
 \cleardoublepage\pagestyle{plain}   % zapnutí číslování stránek
 
@@ -205,7 +205,8 @@
 \include{text/01_dronHW}
 \include{text/02_stacks}
 \include{text/03_px4}
-\include{text/04_simulace}
+\include{text/04_px4_ros}
+\include{text/05_simulace}
 
 %%% Vložení souboru 'text/zaver' se závěrem
 \include{text/zaver}
