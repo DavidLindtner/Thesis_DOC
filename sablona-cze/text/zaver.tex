@@ -2,4 +2,11 @@
 \phantomsection
 \addcontentsline{toc}{chapter}{Závěr}
 
+Tato semestrální práce se zabývala problematikou simulace misí bezpilotních letadel ve virtuálním prostředí ROS2/Gazebo. V první kapitole je popsána topologie dronu z pohledu řídícího systému. Zaobírá se jak řídící jednotkou pro nízkoúrovňové řízení dronu, tak palubním počítačem pro řízení složitých autonomních misí.
+
+V další kapitole je popsán firmware pro řídící jednotku Pixhawk. Kapitola pojednává o architektuře firmware PX4 a o možnostech propojení a komunikace s ostatními periferiemi. Nedílnou součástí ekosystému PX4 je software QGroundControl pro vzdálenou kontrolu letu, plánování různých typů bezpilotních misí a nastavení dronu.
+
+Důležitou částí práce je popis komunikace mezi ROS 2 a PX4 firmware přes Fast RTPS (\acs{DDS}) bridge. Práce rozebírá samotný \acs{DDS} (\acl{DDS}) middleware a jeho komunikační protokol \acs{RTPS} (\acl{RTPS}) pro kritické aplikace, základní vlastnosti \acs{DDS} a hlavně propojení mezi ROS 2 a \acs{DDS} komunikačním middleware.
+
+Poslední kapitola popisuje simulaci ve virtuálním ekosystému PX4 - Gazebo - ROS 2. Shrnuje instalaci všech závislostí a postup sestavení simulačního prostředí (\textit{workspace}). Kapitola se zabývá tvořením a plánováním autonomní robotické mise, která je realizována pomocí ROS 2 balíčku a její testováním v simulačním prostředí. Cílem jednoduché autonomní mise je ovládat dron v tzv. \textit{offboard} módu pomocí ROS 2 balíčku. Podařilo se nám odsimulovat bezpilotní misi složenou z vzletu dronu, přeletu přes několik relativních souřadnic a následného přistání.
 

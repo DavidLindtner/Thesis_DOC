@@ -13,18 +13,19 @@ uORB je asynchronní \acs{API} pro zasílání zpráv \textit{publish} a \textit
 V systému PX4 je definovaných 167 uORB zpráv. Úplný seznam je zveřejněný v uživatelském manuálu PX4: \url{https://docs.px4.io/master/en/msg_docs/} \cite{UORBlist}
 
 \section{MicroRTPS agent a klient}
+\label{sec:komunikace}
 
-PX4-Fast RTPS(DDS) Bridge, který je také označován jako microRTPS Bridge, přidává k PX4 Autopilot rozhraní \acs{RTPS} (\acl{RTPS}), které umožňuje výměnu zpráv uORB mezi různými interními komponenty PX4 a \uv{mimo-palubní} komunikaci s \acs{DDS} aplikacemi v reálném čase.
+PX4-Fast RTPS(\acs{DDS} ) Bridge, který je také označován jako microRTPS Bridge, přidává k PX4 Autopilot rozhraní \acs{RTPS} (\acl{RTPS}), které umožňuje výměnu zpráv uORB mezi různými interními komponenty PX4 a \uv{mimo-palubní} komunikaci s \acs{DDS} aplikacemi v reálném čase.
 
 \acs{RTPS} umožňuje lepší integraci s aplikacemi spuštěnými a propojenými v doménách \acs{DDS} (včetně uzlů ROS 2), což usnadňuje sdílení dat ze senzorů, příkazů a dalších informací o dronu. \cite{UORB2}
 
-Vhodným případem použití \acs{RTPS} jsou aplikace, kde je nutné komunikovat časově kritické informace (informace v reálném čase) mezi letovým ovladačem a \uv{mimo-palubními} (\textit{offboard}) komponenty. \acs{RTPS} je užitečný, kdy je mimo-palubní software kritický pro bezpilotní misi a rovnocenný s procesy běžícími v PX4. Mezi možné příklady použití patří komunikace s uzly v ROS 2, které pracují s daty v reálném čase a jsou nezbytné pro ovládání dronu.
+Vhodným případem použití \acs{RTPS} jsou aplikace, kde je nutné komunikovat časově kritické informace (informace v reálném čase) mezi letovým ovladačem a \uv{mimo-palubními} (\textit{offboard}) komponenty. \acs{RTPS} je užitečný, kdy je mimo-palubní software kritický pro bezpilotní misi a rovnocenný s procesy běžící v PX4. Mezi možné příklady použití patří komunikace s uzly v ROS 2, které pracují s daty v reálném čase a jsou nezbytné pro ovládání dronu.
 
 Výhoda \acs{RTPS} oproti protokolu MAVlink je v tom, že dokáže komunikovat na vyšších frekvencích. 
 
 \subsection{MicroRTPS klient}
 
-MicroRTPS klient je \textit{deamon}, který běží na letovém ovládači (\textit{flight controller}) PX4. Klient se přihlásí k odběru (\textit{subscribe}) zpráv uORB publikovanými interními komponenty autopilota PX4 a odesílá zprávy agentovi (přes UART nebo UDP). Klient taky přijímá zprávy od agenta a publikuje je jako uORB zprávy do systémy PX4. \cite{UORB2}
+MicroRTPS klient je \textit{deamon}, který běží na řídící jednotce (\textit{flight controller}) PX4. Klient se přihlásí k odběru (\textit{subscribe}) zpráv uORB publikovanými interními komponenty autopilota PX4 a odesílá zprávy agentovi (přes UART nebo UDP). Klient taky přijímá zprávy od agenta a publikuje je jako uORB zprávy do systémy PX4. \cite{UORB2}
 
 \subsection{MicroRTPS agent}
 
@@ -43,7 +44,7 @@ Jak je zobrazeno na obrázku \ref{fig:RTPS_a_c} agent a klient jsou propojeni p�
     \label{fig:RTPS_a_c}
 \end{figure}
 
-\section{DDS/RTPS middleware}
+\section{\acs{DDS}/RTPS middleware}
 
 Služba OMG\footnote{Object Management Group\textsuperscript \textregistered (OMG\textsuperscript \textregistered) je mezinárodní neziskové konsorcium pro technologické standardy s otevřeným členstvím.} Data-Distribution Service for Real-Time Systems\textsuperscript \textregistered (\acs{DDS}) je prvním otevřeným mezinárodním middlewarovým standardem, který přímo řeší komunikaci pro \textit{publish and subscribe} systémy v reálném čase.
 
@@ -142,13 +143,13 @@ Při dynamickém hledání bodů v síti \acs{DDS} zjistí, zda koncový bod pub
 \begin{itemize}
     \item OpenFMB (Open Field Message Bus)
     \item Adaptive AUTOSAR (AUTomotive Open System ARchitecture)
-    \item MD PnP (Medical Device "Plug-and-Play")
+    \item MD PnP (Medical Device \uv{Plug-and-Play})
     \item GVA (Generic Vehicle Architecture)
     \item NGVA (NATO Generic Vehicle Architecture)
     \item ROS2 (Robot Operating System 2) \\[0.2cm]
 \end{itemize}
 
-\acs{DDS} má rozsáhlý seznam různých instalací, které jsou často kritické. \acs{DDS} byl použit v: \cite{ROS2DDS}
+\acs{DDS} má rozsáhlý seznam různých instalací, které jsou často kritické. \cite{ROS2DDS}
 
 \begin{itemize}
     \item Bitevní lodě
