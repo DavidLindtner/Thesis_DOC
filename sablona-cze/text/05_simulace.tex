@@ -2,15 +2,15 @@
 
 Simulátory umožňují letovému kódu PX4 ovládat počítačem modelované vozidlo v simulovaném \uv{světě}. S tímto vozidlem můžete komunikovat stejně jako se skutečným vozidlem pomocí QGroundControl, offboard API nebo rádiového ovladače/gamepadu. 
 
-PX4 podporuje jak simulaci \acs{SITL} (\textit{\acl{SITL}}), kde program letového ovladače běží na počítači, nebo simulaci \acs{HITL} (\textit{\acl{HITL}}), kde simulační firmware běží na skutečném letovém ovladači (řídící jednotce). \cite{SIM}
+PX4 podporuje jak simulaci \acs{SITL} (\textit{\acl{SITL}}), kde program řídící jednotky běží na počítači, nebo simulaci \acs{HITL} (\textit{\acl{HITL}}), kde simulační firmware běží na skutečné řídící jednotce. \cite{PX4docs}
 
-Všechny simulátory mohou komunikovat s firmware PX4 pomocí \textit{Simulator MAVLink API}, které definuje sadu zpráv MAVLink. Na obrázku \ref{fig:SIM1} je zobrazen tok zpráv mezi \uv{simulovaným světem} a mezi firmware PX4. Další možnost komunikace mezi simulátorem a PX4 firmware využívá \textit{Micro-RTPS bridge}.
+Všechny simulátory mohou komunikovat s firmware PX4 pomocí \textit{Simulator MAVLink API}, které definuje sadu zpráv MAVLink. Na obrázku \ref{fig:SIM1} je zobrazen tok zpráv mezi \uv{simulovaným světem} a mezi firmware PX4.
 
 \begin{figure}[!ht]
   \begin{center}
     \includegraphics[scale=0.29]{obrazky/SIM1}
   \end{center}
-  \caption[Tok zpráv mezi simulátorem a PX4]{Tok zpráv mezi simulátorem a PX4 \cite{SIM}.}
+  \caption[Tok zpráv mezi simulátorem a PX4]{Tok zpráv mezi simulátorem a PX4 \cite{PX4docs}.}
   \label{fig:SIM1}
 \end{figure}
 
@@ -26,7 +26,7 @@ Různé části simulačního prostředí spolu komunikují pomocí \acs{UDP} (\
   \begin{center}
     \includegraphics[scale=0.3]{obrazky/SIM2}
   \end{center}
-  \caption[Diagram komunikace mezi PX4 a simulátorem]{Diagram komunikace mezi PX4 a simulátorem \cite{SIM}.}
+  \caption[Diagram komunikace mezi PX4 a simulátorem]{Diagram komunikace mezi PX4 a simulátorem \cite{PX4docs}.}
   \label{fig:SIM2}
 \end{figure}
 
@@ -47,7 +47,7 @@ Následující simulátory jsou podporovány systémem PX4:
 
 Simulátor Gazebo je vysoce doporučen pro PX4 simulaci.
 
-Gazebo je dobře navržený a otestovaný simulátor, umožňující rychlé testování algoritmů, návrh robotů a trénování systémů s umělou inteligencí v realistických scénářích. Nabízí možnost přesně a efektivně simulovat populace robotů ve složitých vnitřních i venkovních prostředích. Gazebo se běžně používá pro práci s ROS (ROS 2). \cite{GAZ}
+Gazebo je dobře navržený a otestovaný simulátor, umožňující rychlé testování algoritmů, návrh robotů a trénování systémů s umělou inteligencí v realistických scénářích. Nabízí možnost přesně a efektivně simulovat populace robotů ve složitých vnitřních i venkovních prostředích. Gazebo se běžně používá pro práci s ROS (ROS2). \cite{GAZ}
 
 Podporovaná vozidla \acs{SITL} simulace PX4 v simulátoru Gazebo jsou:
 
@@ -84,7 +84,7 @@ V následujících podkapitolách si popíšeme instalaci jednotlivých částí
 
 Prvním krokem je instalace PX4 prostředí. Při reální misi (nebo \acs{HITL} simulaci) bude PX4 firmware spuštěný přímo na řídící jednotce Pixhawk. Při \acs{SITL} simulaci je nutné PX4 letový kód nainstalovat na počítač. Doporučená platforma pro PX4 prostředí je Ubuntu, ale je možné ho spustit na Windows 10 nebo na Mac OS.
 
-Samotná instalace prostředí PX4 je jednoduchá a skládá se z 2 kroků. \cite{INSTALL1}
+Samotná instalace prostředí PX4 je jednoduchá a skládá se z 2 kroků. \cite{PX4docs}
 
 \begin{lstlisting}[language=bash]
 # 1. Stáhnout zdrojový kód PX4:
@@ -95,7 +95,7 @@ $ git clone https://github.com/PX4/PX4-Autopilot.git --recursive
 $ bash ./PX4-Autopilot/Tools/setup/ubuntu.sh
 \end{lstlisting}
 
-Script \texttt{ubuntu.sh} nastaví vývojové prostředí PX4, dále nainstaluje simulátory Gazebo a jMavSim a sadu nástrojů \textit{NuttX}\footnote{NuttX je \acs{RTOS} (\acl{RTOS}) pro provoz PX4 na řídící jednotce Pixhawk. Je to open source (BSD licence), lehký, výkonný a velmi stabilní operační systém. \cite{PX4main}}/\textit{Pixhawk}
+Script \texttt{ubuntu.sh} nastaví vývojové prostředí PX4, dále nainstaluje simulátory Gazebo a jMavSim a sadu nástrojů \textit{NuttX}\footnote{NuttX je \acs{RTOS} (\acl{RTOS}) pro provoz PX4 na řídící jednotce Pixhawk. Je to open source (BSD licence), lehký, výkonný a velmi stabilní operační systém. \cite{PX4docs}}/\textit{Pixhawk}
 
 \subsection{Instalace ROS 2 Foxy}
 
@@ -116,20 +116,20 @@ $ sudo pip3 install -U empy pyros-genmsg setuptools
 
 \subsection{Nastavení ROS 2 prostředí}
 
-Pro vytvoření ROS 2 pracovního prostoru (\textit{workspace}) podporujícího simulaci v PX4 je nutné stáhnout dva ROS 2 balíčky. \cite{ROS2BRIDGE}
+Pro vytvoření ROS 2 pracovního prostoru (\textit{workspace}) podporujícího simulaci v PX4 je nutné stáhnout dva ROS 2 balíčky. \cite{PX4docs}
 
 Na stáhnutí a sestavení obou balíčků můžeme použít tyto příkazy:
 
 \begin{lstlisting}[language=bash]
 # Naklonování obou balíčků:
-$ mkdir -p ~/px4_ros_com_ros2/src
+$ mkdir -p ~/px4_ros_missions/src
 $ git clone https://github.com/PX4/px4_ros_com.git \
-  ~/px4_ros_com_ros2/src/px4_ros_com
+  ~/px4_ros_missions/src/px4_ros_com
 $ git clone https://github.com/PX4/px4_msgs.git \
-  ~/px4_ros_com_ros2/src/px4_msgs
+  ~/px4_ros_missions/src/px4_msgs
   
 # Balíček px4_ros_com obsahuje scripty na sestavení workspace:
-$ cd ~/px4_ros_com_ros2/src/px4_ros_com/scripts
+$ cd ~/px4_ros_missions/src/px4_ros_com/scripts
 $ source build_ros2_workspace.bash
 \end{lstlisting}
 
@@ -139,7 +139,7 @@ V balíčku \texttt{px4\_msgs} je nadefinovaných víc jak 200 uORB zpráv pro k
 
 \subsubsection{Balíček \texttt{px4\_ros\_com}}
 
-Balíček \texttt{px4\_ros\_com} generuje přepojení mezi ROS 2 a PX4 firmware pomocí Fast RTPS (\acs{DDS}). V tomto balíčku je možné vytvářet ROS 2 misi pro autonomní řízení dronu.
+Balíček \texttt{px4\_ros\_com} generuje přepojení (\textit{MicroRTPS\_agent}) mezi ROS 2 a PX4 firmware pomocí Fast RTPS (\acs{DDS}).
 
 \subsection{PX4 - ROS 2 bridge}
 
@@ -163,7 +163,7 @@ Java JDK a Gradle jsou nutné závislosti pro správnou funkci Fast-RTPS-Gen. Pr
 
 Fast-RTPS-Gen je nástroj pro generování \acs{IDL} (\acl{IDL}) kódu pro Fast RTPS (\acs{DDS}).
 
-Fast-RTPS-Gen je možné nainstalovat pomocí následujícího příkazu \cite{DDSGEN}:
+Fast-RTPS-Gen je možné nainstalovat pomocí následujícího příkazu \cite{PX4docs}:
 
 \begin{lstlisting}[language=bash]
 git clone --recursive https://github.com/eProsima/Fast-DDS-Gen.git \
@@ -176,11 +176,11 @@ git clone --recursive https://github.com/eProsima/Fast-DDS-Gen.git \
 \acs{RTPS} agent se na palubním počítači spouští pomocí příkazu:
 
 \begin{lstlisting}[language=bash]
-$ source ~/px4_ros_com_ros2/install/setup.bash
+$ source ~/px4_ros_missions/install/setup.bash
 $ micrortps_agent -t UDP
 \end{lstlisting}
 
-\section{ROS 2 misie}
+\section{ROS 2 mise}
 
 Jedna možnost pro vytvoření autonomní mise v systému PX4 je pomocí programu QGroundControl, jak je popsáno v kapitole \ref{subs:planovani} \nameref{subs:planovani}. Zde je možné vytvořit jednoduché mise na průzkum prostředí, skenování koridoru, skenování konstrukcí a obecnou misi pomocí \textit{waypoints}. Celá mise musí být naplánovaná před startem, takže dron nemůže pohotově reagovat na různé situace, které nastanou v průběhu letu. 
 
@@ -196,7 +196,7 @@ Pro ovládání dronu z palubního počítače musí mít dron aktivovaný \text
 
 V \textit{offboard} letovém režimu se dronu posílají hlavě zprávy pro let na definovanou pozici (absolutní nebo relativní) a let určitým azimutem a rychlostí. Je vhodné, aby se pro kritické operace jako jsou vzlet, přistání, návrat na startovací pozici (\textit{Return to Launch}) využívali odpovídající letecké režimy.
 
-Aby zůstal \textit{offboard} letový režim aktivní, palubní počítač musí posílat zprávu o aktivitě módu (\texttt{OffboardControlMode message}) s frekvencí > 2 Hz. V případě poruchy pablubního počítače, nebo nedostatečné rychlosti posílání zpráv se \textit{offboard} letový režim vypne a bude aktivovaný \textit{land} letový režim, takže dron přistane na daném místě. \cite{OFFBOADR}
+Aby zůstal \textit{offboard} letový režim aktivní, palubní počítač musí posílat zprávu o aktivitě módu (\texttt{OffboardControlMode message}) s frekvencí > 2 Hz. V případě poruchy pablubního počítače, nebo nedostatečné rychlosti posílání zpráv se \textit{offboard} letový režim vypne a bude aktivovaný \textit{land} letový režim, takže dron přistane na daném místě. \cite{PX4docs}
 
 \subsection{Výsledky simulace}
 

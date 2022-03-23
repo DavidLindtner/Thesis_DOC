@@ -2,55 +2,55 @@
 
 \section{Struktura komunikace v ROS 2}
 
-Velká změna, která se udála v ROS ekosystému při přechodu z ROS na ROS 2 bylo zvolení \acs{DDS} (\acl{DDS}) middleware jako hlavní komunikační prostředek.
+Velká změna, která se udála v ROS ekosystému při přechodu z ROS na ROS 2 bylo zvolení \acs{DDS} (\acl{DDS}) middleware jako hlavního komunikačního prostředku.
 
 Každý ROS 2 uzel (\textit{node}) je namapovaný do vlastního \acs{DDS} procesu. Pokud je spuštěno více ROS 2 uzlů, tak každý uzel je namapovaný do samostatného \acs{DDS} procesu. \cite{ROS2DDS3}
 
 \section{Vnitřní komunikace v PX4}
 
-uORB je asynchronní \acs{API} pro zasílání zpráv \textit{publish} a \textit{subscribe} používané pro komunikaci mezi vlákny a procesy PX4. uORB \acs{API} je automaticky spuštěno při startu PX4 systému, protože na něm závisí množství vnitřních procesů PX4. \cite{UORB1}
+\textit{uORB} je asynchronní \acs{API} pro zasílání zpráv \textit{publish} a \textit{subscribe} používané pro komunikaci mezi vlákny a procesy PX4. \textit{uORB} \acs{API} je automaticky spuštěno při startu PX4 systému, protože na něm závisí množství vnitřních procesů PX4.
 
-V systému PX4 je definovaných 167 uORB zpráv. Úplný seznam je zveřejněný v uživatelském manuálu PX4: \url{https://docs.px4.io/master/en/msg_docs/} \cite{UORBlist}
+V systému PX4 je definovaných 167 \textit{uORB} zpráv. Úplný seznam je zveřejněný v uživatelském manuálu PX4: \url{https://docs.px4.io/master/en/msg_docs/} \cite{PX4docs}
 
 \section{MicroRTPS agent a klient}
 \label{sec:komunikace}
 
-PX4-Fast RTPS(\acs{DDS} ) Bridge, který je také označován jako microRTPS Bridge, přidává k PX4 Autopilot rozhraní \acs{RTPS} (\acl{RTPS}), které umožňuje výměnu zpráv uORB mezi různými interními komponenty PX4 a \uv{mimo-palubní} komunikaci s \acs{DDS} aplikacemi v reálném čase.
+PX4-Fast RTPS(\acs{DDS} ) Bridge, který je také označován jako microRTPS Bridge, přidává k PX4 Autopilot rozhraní \acs{RTPS} (\acl{RTPS}), které umožňuje výměnu zpráv \textit{uORB} mezi různými interními komponenty PX4 a \uv{mimo-palubní} komunikaci s \acs{DDS} aplikacemi v reálném čase.
 
-\acs{RTPS} umožňuje lepší integraci s aplikacemi spuštěnými a propojenými v doménách \acs{DDS} (včetně uzlů ROS 2), což usnadňuje sdílení dat ze senzorů, příkazů a dalších informací o dronu. \cite{UORB2}
+\acs{RTPS} umožňuje lepší integraci s aplikacemi spuštěnými a propojenými v doménách \acs{DDS} (včetně uzlů ROS 2), což usnadňuje sdílení dat ze senzorů, příkazů a dalších informací o dronu.
 
 Vhodným případem použití \acs{RTPS} jsou aplikace, kde je nutné komunikovat časově kritické informace (informace v reálném čase) mezi letovým ovladačem a \uv{mimo-palubními} (\textit{offboard}) komponenty. \acs{RTPS} je užitečný, kdy je mimo-palubní software kritický pro bezpilotní misi a rovnocenný s procesy běžící v PX4. Mezi možné příklady použití patří komunikace s uzly v ROS 2, které pracují s daty v reálném čase a jsou nezbytné pro ovládání dronu.
 
-Výhoda \acs{RTPS} oproti protokolu MAVlink je v tom, že dokáže komunikovat na vyšších frekvencích. 
+Výhoda \acs{RTPS} oproti protokolu MAVlink je v tom, že dokáže komunikovat na vyšších frekvencích. \cite{PX4docs}
 
 \subsection{MicroRTPS klient}
 
-MicroRTPS klient je \textit{deamon}, který běží na řídící jednotce (\textit{flight controller}) PX4. Klient se přihlásí k odběru (\textit{subscribe}) zpráv uORB publikovanými interními komponenty autopilota PX4 a odesílá zprávy agentovi (přes UART nebo UDP). Klient taky přijímá zprávy od agenta a publikuje je jako uORB zprávy do systémy PX4. \cite{UORB2}
+MicroRTPS klient je \textit{deamon}, který běží na řídící jednotce (\textit{flight controller}) PX4. Klient se přihlásí k odběru (\textit{subscribe}) zpráv \textit{uORB} publikovanými interními komponenty autopilota PX4 a odesílá zprávy agentovi (přes UART nebo UDP). Klient taky přijímá zprávy od agenta a publikuje je jako \textit{uORB} zprávy do systémy PX4. \cite{PX4docs}
 
 \subsection{MicroRTPS agent}
 
-MicroRTPS agent běží jako \textit{deamon} na palubním počítači. Agent sleduje aktualizační uORB zprávy od klienta a publikuje je přes \acs{RTPS} do \acs{DDS} domény. Agent taky přijímá zprávy strukturované jako uORB z jiných aplikací v \acs{DDS} doméně a přeposílá je klientovi.
+MicroRTPS agent běží jako \textit{deamon} na palubním počítači. Agent sleduje aktualizační \textit{uORB} zprávy od klienta a publikuje je přes \acs{RTPS} do \acs{DDS} domény. Agent taky přijímá zprávy strukturované jako \textit{uORB} z jiných aplikací v \acs{DDS} doméně a přeposílá je klientovi.
 
 \subsection{Komunikace mezi microRTPS agentem a klientem}
 
-Jak je zobrazeno na obrázku \ref{fig:RTPS_a_c} agent a klient jsou propojeni přes sériovou linku (UART) nebo UDP síť a informace uORB jsou serializovány pomocí \acs{CDR} (\acl{CDR})\footnote{\acl{CDR} je způsob nízkoúrovňové serializace dat mezi různými platformami \cite{CDR}} před odesláním. Micro RTPS agent a všechny \acs{DDS} aplikace jsou propojeny přes UDP a mohou být na stejném nebo jiném zařízení.
+Jak je zobrazeno na obrázku \ref{fig:RTPS_a_c} agent a klient jsou propojeni přes sériovou linku (UART) nebo UDP síť a informace \textit{uORB} jsou serializovány pomocí \acs{CDR} (\acl{CDR})\footnote{\acl{CDR} je způsob nízkoúrovňové serializace dat mezi různými platformami \cite{CDR}} před odesláním. Micro RTPS agent a všechny \acs{DDS} aplikace jsou propojeny přes UDP a mohou být na stejném nebo jiném zařízení.
 
 \begin{figure}[!ht]
     \begin{center}
         \hspace*{-1cm}
         \includegraphics[scale=0.45]{obrazky/RTPS1}
     \end{center}
-    \caption[Schéma komunikace mezi microRTPS agentem a klientem]{Schéma komunikace mezi microRTPS agentem a klientem. \cite{UORB2}}
+    \caption[Schéma komunikace mezi microRTPS agentem a klientem]{Schéma komunikace mezi microRTPS agentem a klientem. \cite{PX4docs}}
     \label{fig:RTPS_a_c}
 \end{figure}
 
-\section{\acs{DDS}/RTPS middleware}
+\section{DDS\texorpdfstring{\textsuperscript{\textregistered}}{ (R)} /RTPS middleware}
 
 Služba OMG\footnote{Object Management Group\textsuperscript \textregistered (OMG\textsuperscript \textregistered) je mezinárodní neziskové konsorcium pro technologické standardy s otevřeným členstvím.} Data-Distribution Service for Real-Time Systems\textsuperscript \textregistered (\acs{DDS}) je prvním otevřeným mezinárodním middlewarovým standardem, který přímo řeší komunikaci pro \textit{publish and subscribe} systémy v reálném čase.
 
 \acs{DDS} představuje virtuální globální datový prostor, kde mohou aplikace sdílet informace pouhým čtením a zápisem datových objektů. Datové objekty jsou adresované pomocí definovaného názvu (\textit{topic}) a klíče (\textit{key}). \acs{DDS} integruje součásti systému dohromady a poskytuje datovou konektivitu s nízkou latencí, extrémní spolehlivost a škálovatelnou architekturu. Nabízí rozsáhlé řízení parametrů \acs{QoS} (\acl{QoS}), včetně spolehlivosti, šířky pásma a limitů zdrojů \cite{DDS_Def}. 
 
-\acs{DDS} middleware komunikuje peer-to-peer a nevyžaduje, aby byla data zprostředkována serverem nebo cloudem. 
+\acs{DDS} middleware komunikuje \textit{peer-to-peer} a nevyžaduje, aby byla data zprostředkována serverem nebo cloudem. 
 
 Jak je zobrazeno na obr \ref{fig:DDSmiddleware}, \acs{DDS} middleware je software vrstva, která odděluje aplikaci od detailů operačního systému, síťového přenosu a nízkoúrovňových datových formátů. Nízkoúrovňové detaily, jako je formát dat v paměti, spolehlivost, protokoly, výběr přenosového kanálu, \acs{QoS}, zabezpečení atd. jsou spravovány middlewarem. 
 
@@ -62,7 +62,7 @@ Jak je zobrazeno na obr \ref{fig:DDSmiddleware}, \acs{DDS} middleware je softwar
     \label{fig:DDSmiddleware}
 \end{figure}
 
-\subsection{\acs{DDS} a ROS 2}
+\subsection{DDS\texorpdfstring{\textsuperscript{\textregistered}}{ (R)} a ROS 2}
 
 \acs{DDS} middleware je základní komunikační interface pro ROS 2. Middleware zajišťuje dynamické hledání bodů v síti, serializaci a \textit{publish/subscribe} přenos dat. ROS 2 skrývá velkou část složitosti \acs{DDS} pro většinu uživatelů, ale taky poskytuje přístup k základní implementaci \acs{DDS} pro uživatele, kteří potřebují vyřešit extrémní případy nebo potřebují integraci s jinými stávající \acs{DDS} systémy. \cite{ROS2DDS}
 
@@ -91,7 +91,7 @@ V \acs{DDS} aplikacích neexistuje žádné globální datové místo, kde by v�
 
 \acs{DDS} se zabývá daty v pohybu - globální datový prostor je virtuální koncept, který je ve skutečnosti pouze souborem lokálních úložišť. Každá aplikace, téměř v jakémkoli jazyce, běžící na jakémkoli systému, vidí lokální paměť ve svém optimálním nativním formátu. Globální datový prostor sdílí data mezi vestavěnými, mobilními a cloudovými aplikacemi v rámci jakéhokoli přenosu, bez ohledu na jazyk nebo systém, a s extrémně nízkou latencí.
 
-\subsection{Základní architektura \acs{DDS}}
+\subsection{Základní architektura DDS\texorpdfstring{\textsuperscript{\textregistered}}{ (R)}}
 
 Nejzákladnějším komunikačním vzorem podporovaným \acs{DDS} je model publikování/přihlášení (\textit{Publish/Subscribe}). \textit{Publish/Subscribe} je komunikační model, kde producenti dat publikují data a spotřebitelé dat se přihlašují k odběru dat. Tito producenti a spotřebitelé o sobě nemusí vědět předem, protože se navzájem dynamicky objevují za běhu. Data, která sdílejí, jsou popsána tématem (\textit{topic}) a producenti a spotřebitelé odesílají a přijímají data pouze pro témata, která je zajímají. V tomto vzoru může mnoho producentů publikovat stejné téma a mnoho spotřebitelů se může přihlásit k odběru stejného tématu. Spotřebitelé dostávají data od všech producentů, se kterými sdílejí téma. Producenti odesílají data přímo Spotřebitelům, aniž by potřebovali brokera nebo centralizovanou aplikaci pro zprostředkování komunikace. \cite{DDS_PubSub}
 
@@ -136,7 +136,7 @@ Při dynamickém hledání bodů v síti \acs{DDS} zjistí, zda koncový bod pub
 
 Účastníci \acs{DDS} komunikace mohou být na stejném počítači nebo v síti. Není potřeba znát nebo konfigurovat IP adresy nebo brát v úvahu rozdíly v architektuře strojů, takže přidání dalšího účastníka komunikace je snadné.
 
-\subsection{Využití \acs{DDS} v praxi}
+\subsection{Využití DDS\texorpdfstring{\textsuperscript{\textregistered}}{ (R)} v praxi}
 
 \acl{DDS} je základem některých průmyslových standardů: \cite{DDS_usage}
 

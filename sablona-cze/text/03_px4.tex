@@ -13,18 +13,18 @@ PX4 firmware se skládá ze dvou hlavních vrstev:
     \item PX4 middleware
     \begin{itemize}
         \item PX4 middleware je obecná robotická vrstva, která podporuje jakýkoli typ autonomního robota a poskytuje interní/externí komunikaci a integraci s hardware.
-        \item Middleware navíc obsahuje simulační vrstvu, která umožňuje spuštění letového kódu PX4 na desktopovém operačním systému a ovládání počítačem modelovaného vozidla v simulovaném prostoru.\\
+        \item Middleware navíc obsahuje simulační vrstvu, která umožňuje spuštění letového kódu PX4 na desktopovém operačním systému a ovládání počítačem modelovaného vozidla v simulovaném prostoru.
     \end{itemize}
 \end{itemize}
-
-Všechny podporované typy vozidel (drony, letadla, čluny, rovery, ponorky atd.) sdílejí jedinou kódovou základnu, která má následující vlastnosti: \cite{PX4main}
+\hfill \break
+Všechny podporované typy vozidel (drony, letadla, čluny, rovery, ponorky atd.) sdílejí jedinou kódovou základnu, která má následující vlastnosti: \cite{PX4docs}
 
 \begin{itemize}
     \item Veškerá funkčnost je rozdělena na vyměnitelné a opakovaně použitelné komponenty
     \item Komunikace probíhá pomocí asynchronního předávání zpráv
-    \item Systém se dokáže vypořádat s různou pracovní zátěží\\
+    \item Systém se dokáže vypořádat s různou pracovní zátěží
 \end{itemize}
-
+\hfill \break
 Na obrázku \ref{fig:PX4_Arch} je zobrazen diagram, který poskytuje podrobný přehled stavebních bloků PX4. Horní část diagramu obsahuje middlewarové bloky, zatímco spodní část zobrazuje komponenty letového zásobníku (\textit{flight stack}).
 
 Moduly spolu komunikují prostřednictvím sběrnice \textit{publish-subscribe} s názvem \textit{uORB}. Hlavní výhody schématu \textit{publish-subscribe} v PX4 jsou následující:
@@ -39,13 +39,13 @@ Moduly spolu komunikují prostřednictvím sběrnice \textit{publish-subscribe} 
     \begin{center}
         \includegraphics[scale=0.45]{obrazky/PX41}
     \end{center}
-    \caption[Komplexní strukturální architektura PX4 software]{Komplexní strukturální architektura PX4 software \cite{PX4main}.}
+    \caption[Komplexní strukturální architektura PX4 software]{Komplexní strukturální architektura PX4 software \cite{PX4docs}.}
     \label{fig:PX4_Arch}
 \end{figure}
 
-\subsection{PX4 jako samotný letový ovladač}
+\subsection{Systém s PX4 řídící jednotkou}
 
-Na obrázku \ref{fig:PX4_FC} je naznačená architektura systému založeného na letovém ovladači (řídící jednotce) (\textit{flight controller}). Řídící jednotka zabezpečuje sběr dat ze senzorů, ovládání akčních členů dronu (pohony, serva, ...), řízení dronu na základě dat ze senzorů a povelů z RC rádia a v neposlední řadě stabilizaci dronu.
+Na obrázku \ref{fig:PX4_FC} je naznačená architektura systému založeného na řídící jednotce (\textit{flight controller}). Řídící jednotka zabezpečuje sběr dat ze senzorů, ovládání akčních členů dronu (pohony, serva, ...), řízení dronu na základě dat ze senzorů a povelů z RC rádia a v neposlední řadě stabilizaci dronu.
 
 Do systému PX4 je možné zasílat povely z pozemní stanice (\textit{Ground Station}) přes protokol \textit{MAVlink} pomocí telemetrické rádiové soupravy.
 
@@ -53,21 +53,21 @@ Do systému PX4 je možné zasílat povely z pozemní stanice (\textit{Ground St
     \begin{center}
         \includegraphics[scale=0.36]{obrazky/PX42}
     \end{center}
-    \caption[Jednoduchý systém PX4 založený na letovém ovladači (flight controller)]{Jednoduchý systém PX4 založený na letovém ovladači (flight controller) \cite{PX4main2}.}
+    \caption[Jednoduchý systém založený na řídící jednotce s PX4 firmware]{Jednoduchý systém založený na řídící jednotce s PX4 firmware \cite{PX4docs}.}
     \label{fig:PX4_FC}
 \end{figure}
 
-\subsection{Letový ovladač a počítač pro řízení mise}
+\subsection{Systém s PX4 řídící jednotkou a počítačem pro řízení mise}
 
-Na obrázku \ref{fig:PX4_FC_PC} je zobrazená architektura systému PX4 založeného na letovém ovladači (řídící jednotce) a palubním počítači pro řízení mise. Řídící jednotka zabezpečuje sběr dat ze senzorů a ovládání akčních členů dronu (pohony, serva, ...). Komunikace mezi řídící jednotkou zabezpečuje protokol MAVlink, nebo \acs{RTPS} (\acl{RTPS}).
+Na obrázku \ref{fig:PX4_FC_PC} je zobrazená architektura systému PX4 založeného na řídící jednotce a palubním počítači pro řízení mise. Řídící jednotka zabezpečuje sběr dat ze senzorů a ovládání akčních členů dronu (pohony, serva, ...). Komunikaci mezi řídící jednotkou a palubním počítači zabezpečuje protokol MAVlink, nebo \acs{RTPS} (\acl{RTPS}).
 
-Palubní počítač pro řízení mise poskytuje pokročilé funkce, jako je vyhýbání se objektům a předcházení kolizím. Obvyklým operačním systémem je Linux s ROS (ROS 2) z důvodu, podpory knihoven na předcházení kolizím a z důvodu, že ROS 2 a PX4 využívají pro komunikaci s okolím \acs{DDS} (\acl{DDS}) middleware.
+Palubní počítač pro řízení mise poskytuje pokročilé funkce, jako jsou například vyhýbání se objektům. Obvyklým operačním systémem je Linux s ROS (ROS 2) z důvodu, podpory knihoven na předcházení kolizím a z důvodu, že ROS 2 a PX4 využívají pro komunikaci s okolím stejný komunikační \acs{DDS} (\acl{DDS}) middleware.
 
 \begin{figure}[!ht]
     \begin{center}
         \includegraphics[scale=0.37]{obrazky/PX43}
     \end{center}
-    \caption[Systém PX4 založený na letovém ovladači (flight controller) a palubním počítači pro řízení mise]{Systém PX4 založený na letovém ovladači (flight controller) a palubním počítači pro řízení mise \cite{PX4main2}.}
+    \caption[Systém založený na PX4 řídící jednotce a palubním počítači pro řízení mise]{Systém založený na PX4 řídící jednotce a palubním počítači pro řízení mise \cite{PX4docs}.}
     \label{fig:PX4_FC_PC}
 \end{figure}
 
@@ -87,7 +87,7 @@ Redistribuce a použití ve zdrojové a binární formě, s úpravami nebo bez n
 
 QGroundControl je software, který poskytuje plnou kontrolu letu a plánování mise pro jakýkoli dron s podporou MAVLink. Jeho primárním cílem je snadné použití pro profesionální uživatele a vývojáře. Veškerý kód je open source, takže je možné přispívat a dál ho vyvíjet \cite{QGround}.
 
-Pomocí QGroundControl je možné nahrát nejnovější PX4, nebo Ardupilot firmware do letového ovladače (\textit{flight controller}), nastavit typ konstrukce dronu, ladit parametry regulace a vytvářet autonomní mise pomocí waypointů. Veškeré nastavení dronu a misí je jednoduché a velmi intuitivní.
+Pomocí QGroundControl je možné nahrát nejnovější PX4, nebo Ardupilot firmware do řídící jednotky, nastavit typ konstrukce dronu, ladit parametry regulace a vytvářet autonomní mise pomocí waypointů. Veškeré nastavení dronu a misí je jednoduché a velmi intuitivní.
 
 Obrázek \ref{fig:QGC} zobrazuje základní obrazovku software QGroundControl.
 
@@ -126,7 +126,7 @@ Systém QGroundControl podporuje velké množství typů konstrukcí dronů, let
 \subsection{Plánování bezpilotní mise}
 \label{subs:planovani}
 
-Software QGroundControl nabízí intuitivní plánování bezpilotních misí. Vlastní misi je možné naplánovat pomocí waypointů, nebo pomocí 3 přednastavených plánů pro bezpilotní mise: \cite{QGround2}
+Software QGroundControl nabízí možnost intuitivního plánování bezpilotních misí. Vlastní misi je možné naplánovat pomocí waypointů, nebo pomocí 3 přednastavených plánů pro bezpilotní mise: \cite{QGround2}
 
 \begin{itemize}
     \item Průzkum prostředí
@@ -136,7 +136,7 @@ Software QGroundControl nabízí intuitivní plánování bezpilotních misí. V
 
 \subsubsection{Průzkum prostředí}
 
-Pomocí tohoto plánu se vytvoří mřížkový letový vzor nad polygonální oblastí definovanou uživatelem. Oblast je možné definovat jako mnohoúhelník nebo kruh. Je zde taky možné nastavit mřížku přeletů, výšku nad povrchem jako absolutní, nebo relativní vůči terénu. Program umožňuje nastavení snímkování prostředí s podporou geotagging\footnote{Geotagging představuje přidávání geografických metadat k různým médiím jako jsou např.: obrázky.}. Obrázek \ref{fig:QGC2} zobrazuje nastavení autonomní mise s průzkumem prostředí.
+Pomocí tohoto plánu se vytvoří mřížkový letový vzor nad polygonální oblastí definovanou uživatelem. Oblast je možné definovat jako mnohoúhelník nebo kruh. Je zde taky možné nastavit mřížku přeletů, výšku nad povrchem jako absolutní, nebo relativní vůči terénu. Program umožňuje nastavení snímkování prostředí s podporou \textit{geotagging}\footnote{Geotagging představuje přidávání geografických metadat k různým médiím jako jsou např.: obrázky.}. Obrázek \ref{fig:QGC2} zobrazuje nastavení autonomní mise s průzkumem prostředí.
 
 \begin{figure}[!ht]
     \begin{center}
