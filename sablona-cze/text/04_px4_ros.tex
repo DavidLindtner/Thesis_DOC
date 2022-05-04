@@ -1,18 +1,29 @@
 \chapter{Propojení PX4 a ROS 2}
 
-\section{Struktura komunikace v ROS 2}
+Existuji dva hlavní přístupy pro výměnu dat mezi ROS 2 middleware a PX4 firmware:
+
+\begin{itemize}
+    \item Přímá komunikace s využitím \acs{DDS} middleware
+    \item Komunikace pomocí MAVLink protokolu\\
+\end{itemize}
+
+V následující kapitole jsou detailně popsány obě možnosti komunikace.
+
+\section{Komunikace pomocí pomocí DDS\texorpdfstring{\textsuperscript{\textregistered}}{ (R)}}
+
+\subsection{Struktura komunikace v ROS 2}
 
 Velká změna, která se udála v ROS ekosystému při přechodu z ROS na ROS 2 bylo zvolení \acs{DDS} (\acl{DDS}) middleware jako hlavního komunikačního prostředku.
 
 Každý ROS 2 uzel (\textit{node}) je namapovaný do vlastního \acs{DDS} procesu. Pokud je spuštěno více ROS 2 uzlů, tak každý uzel je namapovaný do samostatného \acs{DDS} procesu. \cite{ROS2DDS3}
 
-\section{Vnitřní komunikace v PX4}
+\subsection{Vnitřní komunikace v PX4}
 
 \textit{uORB} je asynchronní \acs{API} pro zasílání zpráv \textit{publish} a \textit{subscribe} používané pro komunikaci mezi vlákny a procesy PX4. \textit{uORB} \acs{API} je automaticky spuštěno při startu PX4 systému, protože na něm závisí množství vnitřních procesů PX4.
 
 V systému PX4 je definovaných 167 \textit{uORB} zpráv. Úplný seznam je zveřejněný v uživatelském manuálu PX4: \url{https://docs.px4.io/master/en/msg_docs/} \cite{PX4docs}
 
-\section{MicroRTPS agent a klient}
+\subsection{MicroRTPS agent a klient}
 \label{sec:komunikace}
 
 PX4-Fast RTPS(\acs{DDS} ) Bridge, který je také označován jako microRTPS Bridge, přidává k PX4 Autopilot rozhraní \acs{RTPS} (\acl{RTPS}), které umožňuje výměnu zpráv \textit{uORB} mezi různými interními komponenty PX4 a \uv{mimo-palubní} komunikaci s \acs{DDS} aplikacemi v reálném čase.
@@ -23,15 +34,15 @@ Vhodným případem použití \acs{RTPS} jsou aplikace, kde je nutné komunikova
 
 Výhoda \acs{RTPS} oproti protokolu MAVlink je v tom, že dokáže komunikovat na vyšších frekvencích. \cite{PX4docs}
 
-\subsection{MicroRTPS klient}
+\subsubsection{MicroRTPS klient}
 
 MicroRTPS klient je \textit{deamon}, který běží na řídící jednotce (\textit{flight controller}) PX4. Klient se přihlásí k odběru (\textit{subscribe}) zpráv \textit{uORB} publikovanými interními komponenty autopilota PX4 a odesílá zprávy agentovi (přes UART nebo UDP). Klient taky přijímá zprávy od agenta a publikuje je jako \textit{uORB} zprávy do systémy PX4. \cite{PX4docs}
 
-\subsection{MicroRTPS agent}
+\subsubsection{MicroRTPS agent}
 
 MicroRTPS agent běží jako \textit{deamon} na palubním počítači. Agent sleduje aktualizační \textit{uORB} zprávy od klienta a publikuje je přes \acs{RTPS} do \acs{DDS} domény. Agent taky přijímá zprávy strukturované jako \textit{uORB} z jiných aplikací v \acs{DDS} doméně a přeposílá je klientovi.
 
-\subsection{Komunikace mezi microRTPS agentem a klientem}
+\subsubsection{Komunikace mezi microRTPS agentem a klientem}
 
 Jak je zobrazeno na obrázku \ref{fig:RTPS_a_c} agent a klient jsou propojeni přes sériovou linku (UART) nebo UDP síť a informace \textit{uORB} jsou serializovány pomocí \acs{CDR} (\acl{CDR})\footnote{\acl{CDR} je způsob nízkoúrovňové serializace dat mezi různými platformami \cite{CDR}} před odesláním. Micro RTPS agent a všechny \acs{DDS} aplikace jsou propojeny přes UDP a mohou být na stejném nebo jiném zařízení.
 
@@ -44,7 +55,7 @@ Jak je zobrazeno na obrázku \ref{fig:RTPS_a_c} agent a klient jsou propojeni p�
     \label{fig:RTPS_a_c}
 \end{figure}
 
-\section{DDS\texorpdfstring{\textsuperscript{\textregistered}}{ (R)} /RTPS middleware}
+\subsection{DDS\texorpdfstring{\textsuperscript{\textregistered}}{ (R)} / RTPS middleware}
 
 Služba OMG\footnote{Object Management Group\textsuperscript \textregistered (OMG\textsuperscript \textregistered) je mezinárodní neziskové konsorcium pro technologické standardy s otevřeným členstvím.} Data-Distribution Service for Real-Time Systems\textsuperscript \textregistered (\acs{DDS}) je prvním otevřeným mezinárodním middlewarovým standardem, který přímo řeší komunikaci pro \textit{publish and subscribe} systémy v reálném čase.
 
@@ -62,7 +73,7 @@ Jak je zobrazeno na obr \ref{fig:DDSmiddleware}, \acs{DDS} middleware je softwar
     \label{fig:DDSmiddleware}
 \end{figure}
 
-\subsection{DDS\texorpdfstring{\textsuperscript{\textregistered}}{ (R)} a ROS 2}
+\subsubsection{DDS\texorpdfstring{\textsuperscript{\textregistered}}{ (R)} a ROS 2}
 
 \acs{DDS} middleware je základní komunikační interface pro ROS 2. Middleware zajišťuje dynamické hledání bodů v síti, serializaci a \textit{publish/subscribe} přenos dat. ROS 2 skrývá velkou část složitosti \acs{DDS} pro většinu uživatelů, ale taky poskytuje přístup k základní implementaci \acs{DDS} pro uživatele, kteří potřebují vyřešit extrémní případy nebo potřebují integraci s jinými stávající \acs{DDS} systémy. \cite{ROS2DDS}
 
@@ -77,13 +88,14 @@ ROS 2 podporuje tyto \acs{DDS} implementace:
     \item eProsima Fast DDS
 \end{itemize}
 
-\subsection{Orientace na data (data centricity)}
+\subsection{Základní principy DDS\texorpdfstring{\textsuperscript{\textregistered}}{ (R)}}
+\subsubsection{Orientace na data (data centricity)}
 
 \acs{DDS} middleware je jeden z mála middleware, který je zaměřen na data. Orientace na data zajišťuje, že všechny zprávy obsahují správné kontextové informace, které aplikace potřebuje k pochopení dat, která přijímají.
 
 Podstatou orientace na data je, že \acs{DDS} middleware má informaci o tom, jaká data ukládá, a řídí, jak tato data sdílet. Programátoři používající tradiční middleware zaměřený na zprávy musí napsat kód, který odesílá zprávy. Programátoři používající middleware orientovaný na data píší kód, který určuje, jak a kdy sdílet data a poté přímo sdílejí datové hodnoty. \acs{DDS} přímo implementuje řízené, spravované a bezpečné sdílení dat. \cite{DDS_Main}
 
-\subsection{Globální datový prostor}
+\subsubsection{Globální datový prostor}
 
 \acs{DDS} aplikace má přístup k lokálnímu úložišti dat nazývanému \textit{globální datový prostor}. \textit{Globální datový prostor} vypadá pro aplikaci jako lokální paměť přístupná přes \acs{API} (\acl{API}). \acs{DDS} middleware posílá zprávy k aktualizaci příslušných úložišť na vzdálených komunikačních uzlech (\textit{nodes}).
 
@@ -91,7 +103,7 @@ V \acs{DDS} aplikacích neexistuje žádné globální datové místo, kde by v�
 
 \acs{DDS} se zabývá daty v pohybu - globální datový prostor je virtuální koncept, který je ve skutečnosti pouze souborem lokálních úložišť. Každá aplikace, téměř v jakémkoli jazyce, běžící na jakémkoli systému, vidí lokální paměť ve svém optimálním nativním formátu. Globální datový prostor sdílí data mezi vestavěnými, mobilními a cloudovými aplikacemi v rámci jakéhokoli přenosu, bez ohledu na jazyk nebo systém, a s extrémně nízkou latencí.
 
-\subsection{Základní architektura DDS\texorpdfstring{\textsuperscript{\textregistered}}{ (R)}}
+\subsubsection{Základní architektura DDS\texorpdfstring{\textsuperscript{\textregistered}}{ (R)}}
 
 Nejzákladnějším komunikačním vzorem podporovaným \acs{DDS} je model publikování/přihlášení (\textit{Publish/Subscribe}). \textit{Publish/Subscribe} je komunikační model, kde producenti dat publikují data a spotřebitelé dat se přihlašují k odběru dat. Tito producenti a spotřebitelé o sobě nemusí vědět předem, protože se navzájem dynamicky objevují za běhu. Data, která sdílejí, jsou popsána tématem (\textit{topic}) a producenti a spotřebitelé odesílají a přijímají data pouze pro témata, která je zajímají. V tomto vzoru může mnoho producentů publikovat stejné téma a mnoho spotřebitelů se může přihlásit k odběru stejného tématu. Spotřebitelé dostávají data od všech producentů, se kterými sdílejí téma. Producenti odesílají data přímo Spotřebitelům, aniž by potřebovali brokera nebo centralizovanou aplikaci pro zprostředkování komunikace. \cite{DDS_PubSub}
 
@@ -105,13 +117,13 @@ Jak je zobrazeno na obrázku \ref{fig:DDSarch} v \acs{DDS} se objekty, které pu
   \label{fig:DDSarch}
 \end{figure}
 
-\subsection{Quality of Service}
+\subsubsection{Quality of Service}
 
 V \acs{DDS} aplikacích je možné sdílet data s flexibilními specifikacemi kvality služeb (\acs{QoS}), jako jsou spolehlivost, stav systému, živost, zabezpečení a mnohé další. 
 
 \acs{DDS} middleware posílá jen data, které jsou nutné pro správnou funkci systému. Pokud se zprávy nedostanou do zamýšlených cílů, middleware automaticky zvýší spolehlivost na daných datových cestách. Když se komunikační systémy změní, middleware dynamicky zjistí, kam poslat data, a informuje účastníky o změnách. Pokud je celková velikost dat obrovská, \acs{DDS} inteligentně filtruje a odesílá pouze data, která každý koncový bod skutečně potřebuje a tím snižuje nároky na komunikační kanál. Když je potřeba, aby byly aktualizace rychlé, \acs{DDS} odesílá multicastové zprávy pro aktualizaci mnoha vzdálených aplikací najednou. U aplikací kritických z hlediska zabezpečení \acs{DDS} řídí přístup, vyhodnocuje cesty toku dat a šifruje data za běhu. \cite{DDS_Main}
 
-\subsection{\acs{RTPS} protokol}
+\subsubsection{\acs{RTPS} protokol}
 
 \acs{DDSI} (\acl{DDSI}), jinak \acs{RTPS} (\acl{RTPS}) je protokol pro spolehlivou komunikaci \textit{publish/subscribe} přes nespolehlivé přenosy, jako je UDP pro unicast i multicast. \cite{DDS_Standard}
 
@@ -128,7 +140,7 @@ Protokol RTPS je založen na různých modulech, které řídí výměnu informa
     \item \textit{Discovery module} - definuje sadu vestavěných koncových bodů, které umožňují automatické zjišťování.
 \end{itemize}
 
-\subsection{Dynamické hledání bodů v síti}
+\subsubsection{Dynamické hledání bodů v síti}
 
 \acs{DDS} poskytuje dynamické zjišťování producentů a spotřebitelů dat. Dynamické hledání umožňuje rozšiřitelnost všech \acs{DDS} aplikací. To znamená, že aplikace nemusí znát nebo konfigurovat koncové body pro komunikaci, protože je automaticky za běhu zjistí \acs{DDS}.
 
@@ -159,3 +171,118 @@ Při dynamickém hledání bodů v síti \acs{DDS} zjistí, zda koncový bod pub
     \item Letové systémy
     \item Systémy vlakových rozvaděčů
 \end{itemize}
+
+\section{Komunikace pomocí MAVLink}
+
+MAVLink (\textit{Micro Air Vehicle communication protocol}) je \uv{lehký} protokol využívaný už od roku 2009 pro komunikaci mezi vnitřními procesy na palubě dronu, nebo mezi pozemní stanicí a dronem v náročných komunikačních podmínkách jako je vysoká latence, nebo šum prostředí.
+
+Základní komunikační schémata využívána protokolem MAVLink jsou \textit{publish-subscribe} a \textit{point-to-point}.
+
+Knihovny, které implementují funkce a definují zprávy MAVLink protokolu, jsou pro většinu programovacích jazyků vydány s MIT licencí, takže je lze bez omezení využívat v libovolné aplikaci s uzavřeným zdrojovým kódem. Proto je možné MAVLink protokol využívat na různých platformách, jako jsou Windows, Linux, iOS a Android, ale i na mikrokontrolérech včetně ARM7, ATMega, dsPic, STM32. \cite{MAVLINK}
+
+\subsection{MAVLink zprávy}
+
+Společná sada zpráv MAVLink obsahuje standardní definice, které jsou spravovány protokolem MAVLink. Tyto definice zahrnují hlavně funkce, které jsou považovány za užitečné pro většinu pozemních řídicích stanic a autopilotů. Od všech systémů kompatibilních s protokolem MAVLink se očekává, že budou tyto definice používat tam, kde je to možné.
+
+Seznam standardních definic zpráv protokolu MAVLink je zveřejněn zde: \url{https://mavlink.io/en/messages/common.html}
+
+Na obrázku \ref{fig:MAV1} je zobrazena struktura MAVLink zprávy.
+
+\begin{figure}[!ht]
+  \begin{center}
+    \hspace*{-1cm}
+    \includegraphics[scale=0.31]{obrazky/MAV1}
+  \end{center}
+  \caption[Strura MAVLink zprávy]{Strura MAVLink zprávy \cite{MAVLINK}.}
+  \label{fig:MAV1}
+\end{figure}
+
+\begin{itemize}
+    \item \texttt{STX}: Indikace začátku paketu (hodnota \texttt{0xFD})
+    \item \texttt{LEN}: Délka sekce s datama - \texttt{PAYLOAD}
+    \item \texttt{INC FLAGS}: Příznak nekompatibility
+    \begin{itemize}
+        \item Definuje kritické funkce, které musí daná implementace MAVLinku podporovat, aby bylo možné zpracovat paket.
+    \end{itemize}
+    \item \texttt{CMP FLAGS}:Příznak kompatibility
+    \begin{itemize}
+        \item Obsahuje doplňující informace, které nejsou nutné k správnému zpracování paketu.
+    \end{itemize}
+    \item \texttt{SEQ}: Pořadové číslo paketu pro zprávy skládající se z víc paketů
+    \item \texttt{SYS ID}: Číslo systému v síti (vozidlo)
+    \item \texttt{COMP ID}: Číslo komponenty na definovaném systému (kamera, autopilot, ...)
+    \item \texttt{MSG ID}: Číslo zprávy
+    \item \texttt{PAYLOAD}: Data
+    \begin{itemize}
+        \item Struktura dat je definována číslem zprávy (\texttt{MSG ID})
+    \end{itemize}
+    \item \texttt{CHECKSUM}: Informace pro detekci, jestli zpráva dorazila v pořádku
+    \item \texttt{SIGNATURE}: Podpis, který zajisti zprávu proti neoprávněné manipulaci
+\end{itemize}
+
+\subsection{MAVLink mikroslužby}
+
+MAVLink mikroslužby definují protokoly vyšší úrovně, pomocí kterých mohou systémy MAVLink komunikovat s vyšší efektivitou. Například pozemní stanice (QGroundControl, ArduPilot) a autopilot PX4 sdílejí společný příkazový protokol pro zasílání zpráv vyžadující potvrzení (\textit{acknowledge}).
+
+Mikroslužby zajišťují, jak se rozdělí a znovu sestaví data, které mají většív velikost, než je velikost jedné zprávy. Jestliže jsou nějaká data ztracena v průběhu přenosu, mikroslužby iniciují opětovné odeslání dat.
+
+Většina mikroslužeb využívá vzor \textit{client-server}, například pozemní stanice (klient) iniciuje požadavek a vozidlo (server) odpovídá daty.
+
+\subsection{Implementace protokolu MAVLink}
+
+Velké množství autopilotů, pozemních stanic, \acl{API} (\acs{API}), projektů a dalších softwarových balíčků používá protokol MAVLink.
+
+\subsubsection{Autopilot}
+
+Na trhu existuje velké množství hobby autopilotů, nebo profesionálních řešení pro modely letadel a dronů. Níže uvedený seznam zobrazuje aktivní vyvíjené autopiloty, které využívají komunikační MAVLink protokol.  \cite{MAVLINK}
+
+\begin{itemize}
+    \item PX4
+    \item ArduPilot
+    \item AutoQuad 6 AutoPilot
+    \item iNAV
+    \item SmartAP Autopilot\\
+\end{itemize}
+
+
+\begin{multicols}{2}
+[
+\subsubsection{Pozemní stanice}
+]
+    \begin{itemize}
+        \item QGroundControl
+        \item AutoQuad GCS
+        \item SmartAP GCS
+        \item Yuneec Datapilot
+        \item Sentera Groundstation
+        \item WingtraPilot
+        \item APM Planner 2.
+        \item Mission Planner
+        \item MAVProxy
+        \item UgCS (Universal Ground Control Station)
+        \item Side Pilot
+        \item JAGCS
+        \item Flightzoomer
+        \item Inexa Control
+        \item Synturian Control
+    \end{itemize}
+\end{multicols}
+
+\subsubsection{API}
+
+Pro zjednodušení interakce s autopiloty, kamerami, pozemními stanicemi a mnoha dalšíma uzly s podporou MAVLink protokolu bylo vytvořeno několik vysokoúrovňových \acs{API}. Tyto \acs{API} poskytují implementace hlavních mikroslužeb a jednoduché komunikační rozhraní pro odesílání příkazů a k příjmu informací o vozidle. V níže uvedeném seznamu jsou aktivně udržované implementace.
+
+\begin{itemize}
+    \item MAVSDK - MAVLink API Library (C++, Python, Swift, Java, JS) 
+    \item Dronecode Camera Manager - Přidávé rozhraní pro kamery připojené k Linuxovým systémem
+    \item Rosetta Drone - MAVLink vazba na DJI \acs{SDK} (\acl{SDK}) - propojení DJI dronu a pozemní stanice podporující MAVLink
+    \item Pymavlink - MAVLink vazba na Python
+    \item MAVROS - Přemostění ROS (ROS 2) a MAVLink
+    \item DroneKit - MAVLink API pro Python a Android (optimalizované pro ArduPilot)
+\end{itemize}
+
+\subsection{Propojení s ROS 2}
+
+
+
+\subsubsection{Mavros}

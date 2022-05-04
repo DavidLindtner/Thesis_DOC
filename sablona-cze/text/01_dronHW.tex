@@ -52,18 +52,4 @@ Jako palubní počítač se na experimentální letecké mise využívá jednode
 
 Důležitými výhodami pro aplikace v robotických misích jsou integrace na jeden plošný spoj, nízká proudová spotřeba a možnost spuštění linuxových distribucí. Nejběžnější podporované distribuce jsou Raspberry PI OS, Raspbian, Ubuntu desktop a server.
 
-Hlavní důvod pro použití Raspberry PI jako palubního počítače je možnost spolehlivé komunikace s PX4 firmware přes ROS 2 \textit{topic}. Komunikací mezi uvedenými platformami se budeme zabývat v následujících kapitolách
-
-\section{Software pro řízení bezpilotních letadel}
-
-Existují dvě hlavní větve vývoje firmware pro řídící jednotku Pixhawk. Jednou platformou je open source projekt ArduPilot \cite{ARDU}, který podporuje velké množství bezpilotních prostředků a umožňuje vytváření autonomních misí. Druhým projektem je profesionální autopilot PX4 \cite{PX4ORG}. Velkou výhodou obou projektů je, že jsou do velké části kompatibilní, například software pro pozemní stanice QGroundControl z platformy PX4 může komunikovat s řídící jednotkou s firmware od ArduPilot a naopak. Vzájemná kompatibilita je zajištěna využitím stejného komunikačního protokolu MAVLink. Výhoda protokolu MAVLink spočívá aj v tom, že oba firmware můžou komunikovat s ROS (Robot Operating System) přes MAVROS\footnote{MAVROS je komunikační ovládač (\textit{driver}) pro komunikaci mezi ROS a autopiloty s MAVLink protokolem}
-
-\subsection{ArduPilot}
-
-ArduPilot je open source autopilot podporující mnoho typů vozidel, například multikoptéry, tradiční vrtulníky, letadla s pevnými křídly, čluny, ponorky, rovery a další. Projekt ArduPilot má společnou historii s PX4, ale v minulosti se tyto dva projekty oddělili. Proto mají oba projekty do velké míry podobné využití a míří na stejnou platformu.
-
-Zdrojový kód projektu ArduPilot je vyvíjen širokým spektrem profesionálů a nadšenců, takže výhodou je velká komunita poskytující řešení na řadu problémů.
-
-Frimware ArduPilot je založený na ChibiOS \acs{RTOS} (\acl{RTOS}). ArduPilot taky poskytuje možnost simulace letového kódu jak simulací \acs{SITL} (\acl{SITL}), tak simulací \acs{HITL} (\acl{HITL}). \cite{ARDU}
-
-Pro další pokračování v práci jsme zvolili projekt PX4, takže další části budou pojednávat už o firmware PX4.
+Hlavní důvod pro použití Raspberry PI jako palubního počítače je možnost spolehlivé komunikace s firmware pro řízení bezpilotních letadel (PX4, ArduPilot, ...) přes ROS 2 \textit{topic}, nebo MAVLink. Komunikací mezi uvedenými platformami se budeme zabývat v následujících kapitolách.
