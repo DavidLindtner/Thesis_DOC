@@ -228,9 +228,9 @@ Mikroslužby zajišťují, jak se rozdělí a znovu sestaví data, které mají 
 
 Většina mikroslužeb využívá vzor \textit{client-server}, například pozemní stanice (klient) iniciuje požadavek a vozidlo (server) odpovídá daty.
 
-\subsection{Implementace protokolu MAVLink}
+\subsection{Využití protokolu MAVLink}
 
-Velké množství autopilotů, pozemních stanic, \acl{API} (\acs{API}), projektů a dalších softwarových balíčků používá protokol MAVLink.
+Velké množství autopilotů, pozemních stanic, \acs{API}, projektů a dalších softwarových balíčků používá protokol MAVLink.
 
 \subsubsection{Autopilot}
 
@@ -281,8 +281,23 @@ Pro zjednodušení interakce s autopiloty, kamerami, pozemními stanicemi a mnoh
     \item DroneKit - MAVLink API pro Python a Android (optimalizované pro ArduPilot)
 \end{itemize}
 
-\subsection{Propojení s ROS 2}
+\subsection{Přemostění ROS 2 a MAVLink}
 
+K přemostění ROS (ROS 2) a protokolu MAVLink slouží balíček Mavros. \cite{MAVROS}
 
+Mavros je rozšiřitelný komunikační MAVLink uzel (\textit{node}) pro ROS (ROS 2). Poskytuje komunikační ovladač pro různé autopiloty s komunikačním protokolem MAVLink. Dále poskytuje komunikační UDP kanál pro pozemní řídicí stanice jako je například QGroundControl nebo ArduPilot.
 
-\subsubsection{Mavros}
+\subsubsection{Vlastnosti balíčku Mavros:}
+
+\begin{itemize}
+    \item Komunikace s autopilotem nebo pozemní stanicí přes sériový port, UDP nebo TCP
+    \item Nástroje pro manipulaci s parametry
+    \item Nástroje pro manipulaci s bodmi trasy (\textit{waypoints})
+    \item Podpora módu OFFBOARD
+    \item Konverze geografických souřadnic
+\end{itemize}
+
+\subsubsection{Práce s Mavros uzlem}
+
+Po vytvoření Mavros uzlu (\textit{node}) jsou témata (\textit{ROS topic}) a služby (\textit{ROS services}) související s autopilotem připraveny k použití. Pak stačí vytvořit ROS (ROS 2) uzel pro zpracování dat a povelování dronu, který bude komunikovat na dostupná témata, nebo služby. \cite{MAVROS2}
+
