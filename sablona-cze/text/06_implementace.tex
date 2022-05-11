@@ -20,7 +20,7 @@ V případě poruchy palubního počítače, nebo nedostatečné rychlosti posí
 
 \section{Struktura robotické mise}
 
-Jedním z cílů práce je navrhnout a implementovat ukázkovou misi pro autonomní misi dronů. V této kapitole se budeme zabývat námi implementovaným řešením robotické mise.
+Jedním z cílů práce je navrhnout a implementovat ukázkovou robotickou misi pro autonomní létání dronů. V této kapitole se budeme zabývat námi implementovaným řešením robotické mise.
 
 \subsection{Základní funkce dronu}
 
@@ -46,7 +46,7 @@ Pro změnu vnitřních parametrů PX4 přez ROS 2 je nutné, aby spuštěný Mav
 
 \subsubsection{Funkce \texttt{preFlightCheck}}
 
-Funkce \texttt{preFlightCheck} nastaví parametry PX4, které jsou nezbytné pro robotickou misi, jako jsou výška vzletu, horizontální rychlost, povolení \textit{offboard} módu a chování dronu po výpadku \textit{offboard módu}. Dále tato funkce zkontroluje, jestli má dron GPS \textit{fix}.
+Funkce \texttt{preFlightCheck} nastaví parametry PX4, které jsou nezbytné pro robotickou misi, jako jsou výška vzletu, horizontální rychlost, povolení \textit{offboard} módu a chování dronu po výpadku \textit{offboard módu}. Dále tato funkce zkontroluje, jestli proběhla korektní geolokace (GPS \textit{fix}).
 
 \subsubsection{Funkce \texttt{publish\_traj\_setp\_position}}
 
@@ -105,20 +105,93 @@ Tabulka \ref{tab:pubsub} zobrazuje a popisuje všechny ROS 2 \textit{publishery}
   \end{center}
 \end{table}
 
-\section{Let po waypointech}
+\subsection{Struktura řídícího algoritmu}
 
-\subsection{Let podle lokálních waypointů}
+Všechny námi implementované robotické mise mají stejnou základní strukturu algoritmu. Pro řízení mise je využitý jeden hlavní stavový automat, který ovládá všechny úkony od vzletu až po ukončení mise.
 
-\subsection{Let podle globálních waypointů}
+Kromě vzletu, kde je použitý \textit{take off} letový režim je v celé robotické misi využíván \textit{offboard} letový režim, v kterém dron vykonává všechny další úkony. Podle typu robotické mise řídící systém posílá dronu v \textit{offboard} letovém režimu lokální nebo globální poziční waypointy, nebo rychlostní setpointy.
 
-\subsection{Let podle setpointů rychlosti}
+\subsection{Stavový automat pro řízení mise}
 
-\section{Mise pro sledování dynamického objektu}
+Na obrázku \ref{fig:MISE2} jsou zobrazeny kroky základního stavového automatu pro řízení námi implementovaných misí.
+
+V následující části jsou popsány stavy a podmínky přechodů v stavovém automatu pro řízení mise:
 
 \begin{figure}[!ht]
   \begin{center}
-    \includegraphics[scale=0.33]{obrazky/MISE2}
+    \includegraphics[scale=0.32]{obrazky/MISEAUTOMAT}
   \end{center}
-  \caption[a]{a.}
+  \caption[Stavový automat řídící robotickou misi]{Stavový automat řídící robotickou misi.}
   \label{fig:MISE2}
 \end{figure}
+
+\subsubsection{Stav 0: Čekání na start mise}
+
+Dron je na zemi ve vypnutém stavu.
+
+\noindent\textbf{Podmínka přechodu:} Uběhne uživatelem stanovený čas.
+
+\subsubsection{Stav 1: Získání parametrů z PX4}
+
+Dron vyžádá aktivní parametry ze systému PX4 kvůli tomu, aby bylo možné měnit parametry pomocí komunikačního uzlu Mavros.
+
+\noindent\textbf{Podmínka přechodu:} Komunikační uzel Mavros pošle nadřazenému uzlu, který řídí misi informaci, že systém PX4 poskytl všechny aktivní parametry.
+
+\subsubsection{Stav 2: Předletová kontrola}
+
+V tomto kroku dron vykoná nezbytné kontroly letové způsobilosti jako je kontrola korektní geolokace (GPS \textit{fix}) a nastaví důležité parametry robotické mise jako je výška vzletu, horizontální rychlost, povolení \textit{offboard módu} a chování dronu po výpadku \textit{offboard} módu.
+
+\noindent\textbf{Podmínka přechodu:} Systém PX4 odešle informaci, že všechny parametry byly změněny správně a GPS na dronu je aktivní.
+
+\subsubsection{Stav 3: Čekání na vzlet}
+
+Dron je na zemi ve vypnutém stavu.
+
+\noindent\textbf{Podmínka přechodu:} Uběhne uživatelem stanovený čas.
+
+\subsubsection{Stav 4: Přepnutí dronu do \textit{take off} letového režimu}
+
+Nadřazený systém pošle požadavek pro změnu letového režimu na \textit{take off} letový režim.
+
+\noindent\textbf{Podmínka přechodu:} Systém PX4 pošle odpověď, že letový režim dronu byl úspěšně změněný.
+
+\subsubsection{Stav 5: Přepnutí dronu do \textit{arm} módu}
+
+Nadřazený systém pošle požadavek pro změnu letového režimu.
+
+\noindent\textbf{Podmínka přechodu:} Systém PX4 pošle odpověď, že mód dronu byl úspěšně změněný na \textit{arm}.
+
+\subsubsection{Stav 6: Čekání na ukončení vzletu dronu}
+
+Dron vykonává sekvenci úkonů pro vzlet.
+
+\noindent\textbf{Podmínka přechodu:} Nadřazený systém detekuje změnu letového režimu na \textit{hold} letový režim z důvodu ukončení vzletu.
+
+\subsubsection{Stav 7: Přepnutí dronu do \textit{offboard} letového režimu}
+
+Nadřazený systém pošle požadavek pro změnu letového režimu na \textit{offboard} letový režim.
+
+\noindent\textbf{Podmínka přechodu:} Systém PX4 pošle odpověď, že letový režim dronu byl úspěšně změněný.
+
+\subsubsection{Stav 8: Čekání na data}
+
+Dron se vznáší v \textit{offboard} letovém režimu na místě, kde byla ukončená vzletová sekvence. Tento stav je aktivní jenom v misích, kde jsou data pro let dronu generována a vysílána jiným ROS 2 uzlem, například v misi pro sledování dynamického objektu.
+
+\noindent\textbf{Podmínka přechodu:} ROS 2 uzel pro řízení mise přijme první paket dat.
+
+\subsubsection{Stav 9: Let podle setpointů}
+
+Dron v \textit{offboard} letovém režimu vykonává jednotlivé úkony robotické mise. Nadřazený ROS 2 uzel pro řízení mise posílá dronu buď poziční waypointy (lokální nebo globální), nebo řídí přímo lineární rychlosti v osách \textit{X}, \textit{Y}, \textit{Z} a rychlost rotace kolem osy \textit{Z}.
+
+\noindent\textbf{Podmínka přechodu:} Nadřazený uzel pro řízení mise již nepřímá data pro let dronu (po určitou dobu definovanou uživatelem), nebo dron vykoná všechny úkony robotické mise.
+
+\subsubsection{Stav 10: Přepnutí do \textit{hold} režimu}
+
+Dron se v tomto stavu vznáší v \textit{offboard} letovém režimu na místě, kde ukončil poslední úkon robotické mise. V této fázi je nutný zásah pilota kvůli tomu, že nechceme, aby dron zahájil přistávací manévr bez vědomí a povolení pilota.
+
+\noindent\textbf{Podmínka přechodu:} Pilot dronu převezme řízení dronu.
+
+\subsubsection{Stav 11: Konec mise}
+
+Pilot dronu přistává, nebo zahajuje další autonomní misi.
+
