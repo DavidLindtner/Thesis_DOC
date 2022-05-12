@@ -88,13 +88,13 @@ Redistribuce a použití ve zdrojové a binární formě, s úpravami nebo bez n
 
 Letové režimy určují chování PX4 autopilota a tím výrazně ovlivňují vlastnosti dronu během letu. Režimy poskytují uživateli různé úrovně pomoci autopilota od automatizace jednoduchých úkolů, jako je vzlet nebo přistání až po komplexní řízení autonomní mise.
 
-Přepínat mezi letovými režimy je možné pomocí pozemní stanice v software QGroundControl, pomocí nadřazeného počítače pro řízení mise, nebo pomocí dálkového ovladače. Obrázek \ref{fig:LETREZ} zobrazuje logiku přepínání letových režimů v řídící jednotce s firmware PX4. \cite{PX4docs}
+Přepínat mezi letovými režimy je možné pomocí pozemní stanice v software QGroundControl, pomocí nadřazeného počítače pro řízení mise, nebo pomocí dálkového ovladače. \cite{PX4docs} %Obrázek \ref{fig:LETREZ} zobrazuje logiku přepínání letových režimů v řídící jednotce s firmware PX4. 
 
 \subsection{Manuální režimy}
 
 V manuálních režimech má uživatel přímou kontrolu nad dronem pomocí RC ovladače. Pohyb vozidla vždy následuje pohyb páky, ale úroveň nebo typ odezvy se mění v závislosti na letovém režimu. Pro multikoptéry existují 2 manuální režimy:
 
-\subsubsection{Manual/Stabilized}
+\subsubsection{Stabilized}
 
 Vstupy z RC vysílačky se interpretují jako příkazy o uhlu náklonu, úhlu sklonu a rychlosti stáčení. Příkaz z plynové páky je předán přímo do výstupního směšovače. Autopilot reguluje náklon dronu na nulu, když jsou páky na RC vysílači vycentrovány. V tomto režimu se poloha může měnit vlivem větru.
 
@@ -123,37 +123,37 @@ PX4 autopilot může ovládat dron v těchto autonomních leteckých režimech: 
 \noindent\textbf{Take Off}
 
 \begin{itemize}
-    \item Dron vystoupá do definované výšky pro vzlet
+    \item Dron vystoupá do definované výšky pro vzlet.
 \end{itemize}
 
 \noindent\textbf{Land}
 
 \begin{itemize}
-    \item Dron přistane na místě, kde byl letový režim aktivován
+    \item Dron přistane na místě, kde byl letový režim aktivován.
 \end{itemize}
 
 \noindent\textbf{Hold}
 
 \begin{itemize}
-    \item Dron se vznáší na GPS pozici v konstantní výšce
+    \item Dron se vznáší na GPS pozici v konstantní výšce.
 \end{itemize}
 
 \noindent\textbf{Return to launch}
 
 \begin{itemize}
-    \item Dron přistane na místě, z kterého vzlétl
+    \item Dron přistane na místě, z kterého vzlétl.
 \end{itemize}
 
 \noindent\textbf{Mission}
 
 \begin{itemize}
-    \item Dron vykoná předdefinovanou misi, která byla nahrána do řídící jednotky
+    \item Dron vykoná předdefinovanou misi, která byla nahrána do řídící. jednotky
 \end{itemize}
 
 \noindent\textbf{Follow Me}
 
 \begin{itemize}
-    \item Dron automaticky následuje osobu se zařízením, v kterém běží software QGroundControl
+    \item Dron automaticky následuje osobu se zařízením, v kterém běží software QGroundControl.
 \end{itemize}
 
 \noindent\textbf{Offboard}
@@ -162,13 +162,13 @@ PX4 autopilot může ovládat dron v těchto autonomních leteckých režimech: 
     \item Dron se řídí nastavenými hodnotami pozice, rychlosti, nebo natočení poskytovanými z nadřazeného systému (přez MAVLink, nebo \acs{RTPS})
 \end{itemize}
 
-\begin{figure}[!ht]
-    \begin{center}
-        \includegraphics[scale=0.4]{obrazky/fmode}
-    \end{center}
-    \caption[Diagram přepínání mezi letovými režimy]{Diagram přepínání mezi letovými režimy. \cite{PX4docs}}
-    \label{fig:LETREZ}
-\end{figure}
+%\begin{figure}[!ht]
+%    \begin{center}
+%        \includegraphics[scale=0.4]{obrazky/fmode}
+%    \end{center}
+%    \caption[Diagram přepínání mezi letovými režimy]{Diagram přepínání mezi letovými režimy. \cite{PX4docs}}
+%    \label{fig:LETREZ}
+%\end{figure}
 
 
 \section{QGround Control}
@@ -207,7 +207,7 @@ Systém QGroundControl podporuje velké množství typů konstrukcí dronů, let
     \begin{center}
         \includegraphics[scale=0.3]{obrazky/QG2}
     \end{center}
-    \caption[Základní obrazovka QGroundControl]{Základní obrazovka QGroundControl.}
+    \caption[Podporované typy vozidel systémem PX4]{Podporované typy vozidel systémem PX4.}
     \label{fig:QGC1}
 \end{figure}
 

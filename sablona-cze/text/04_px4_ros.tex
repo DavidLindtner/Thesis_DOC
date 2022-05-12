@@ -15,7 +15,7 @@ V následující kapitole jsou detailně popsány obě možnosti komunikace.
 
 Velká změna, která se udála v ROS ekosystému při přechodu z ROS na ROS 2 bylo zvolení \acs{DDS} (\acl{DDS}) middleware jako hlavního komunikačního prostředku.
 
-Každý ROS 2 uzel (\textit{node}) je namapovaný do vlastního \acs{DDS} procesu. Pokud je spuštěno více ROS 2 uzlů, tak každý uzel je namapovaný do samostatného \acs{DDS} procesu. \cite{ROS2DDS3}
+Každý ROS 2 uzel (\textit{node}) je namapovaný do vlastního \acs{DDS} procesu. Pokud je spuštěno více ROS 2 uzlů, tak je každý uzel namapovaný do samostatného \acs{DDS} procesu. \cite{ROS2DDS3}
 
 \subsection{Vnitřní komunikace v PX4}
 
@@ -36,7 +36,7 @@ Výhoda \acs{RTPS} oproti protokolu MAVlink je v tom, že dokáže komunikovat n
 
 \subsubsection{MicroRTPS klient}
 
-MicroRTPS klient je \textit{deamon}, který běží na řídící jednotce (\textit{flight controller}) PX4. Klient se přihlásí k odběru (\textit{subscribe}) zpráv \textit{uORB} publikovanými interními komponenty autopilota PX4 a odesílá zprávy agentovi (přes UART nebo UDP). Klient taky přijímá zprávy od agenta a publikuje je jako \textit{uORB} zprávy do systémy PX4. \cite{PX4docs}
+MicroRTPS klient je \textit{deamon}, který běží na řídící jednotce (\textit{flight controller}) PX4. Klient se přihlásí k odběru (\textit{subscribe}) zpráv \textit{uORB} publikovanými interními komponenty autopilota PX4 a odesílá zprávy agentovi (přes UART nebo UDP). Klient taky přijímá zprávy od agenta a publikuje je jako \textit{uORB} zprávy do systémy PX4.
 
 \subsubsection{MicroRTPS agent}
 
@@ -63,7 +63,7 @@ Služba OMG\footnote{Object Management Group\textsuperscript \textregistered (OM
 
 \acs{DDS} middleware komunikuje \textit{peer-to-peer} a nevyžaduje, aby byla data zprostředkována serverem nebo cloudem. 
 
-Jak je zobrazeno na obr \ref{fig:DDSmiddleware}, \acs{DDS} middleware je software vrstva, která odděluje aplikaci od detailů operačního systému, síťového přenosu a nízkoúrovňových datových formátů. Nízkoúrovňové detaily, jako je formát dat v paměti, spolehlivost, protokoly, výběr přenosového kanálu, \acs{QoS}, zabezpečení atd. jsou spravovány middlewarem. 
+Jak je zobrazeno na obr \ref{fig:DDSmiddleware}, \acs{DDS} middleware je softwarová vrstva, která odděluje aplikaci od detailů operačního systému, síťového přenosu a nízkoúrovňových datových formátů. Nízkoúrovňové detaily, jako je formát dat v paměti, spolehlivost, protokoly, výběr přenosového kanálu, \acs{QoS}, zabezpečení atd. jsou spravovány middlewarem. 
 
 \begin{figure}[!ht]
     \begin{center}
@@ -105,7 +105,7 @@ V \acs{DDS} aplikacích neexistuje žádné globální datové místo, kde by v�
 
 \subsubsection{Základní architektura DDS\texorpdfstring{\textsuperscript{\textregistered}}{ (R)}}
 
-Nejzákladnějším komunikačním vzorem podporovaným \acs{DDS} je model publikování/přihlášení (\textit{Publish/Subscribe}). \textit{Publish/Subscribe} je komunikační model, kde producenti dat publikují data a spotřebitelé dat se přihlašují k odběru dat. Tito producenti a spotřebitelé o sobě nemusí vědět předem, protože se navzájem dynamicky objevují za běhu. Data, která sdílejí, jsou popsána tématem (\textit{topic}) a producenti a spotřebitelé odesílají a přijímají data pouze pro témata, která je zajímají. V tomto vzoru může mnoho producentů publikovat stejné téma a mnoho spotřebitelů se může přihlásit k odběru stejného tématu. Spotřebitelé dostávají data od všech producentů, se kterými sdílejí téma. Producenti odesílají data přímo Spotřebitelům, aniž by potřebovali brokera nebo centralizovanou aplikaci pro zprostředkování komunikace. \cite{DDS_PubSub}
+Nejzákladnějším komunikačním vzorem podporovaným \acs{DDS} je model publikování/přihlášení (\textit{Publish/Subscribe}). \textit{Publish/Subscribe} je komunikační model, kde producenti publikují data a spotřebitelé se přihlašují k odběru dat. Tito producenti a spotřebitelé o sobě nemusí vědět předem, protože se navzájem dynamicky objevují za běhu. Data, která sdílejí, jsou popsána tématem (\textit{topic}) a producenti a spotřebitelé odesílají a přijímají data pouze pro témata, která je zajímají. V tomto vzoru může mnoho producentů publikovat stejné téma a mnoho spotřebitelů se může přihlásit k odběru stejného tématu. Spotřebitelé dostávají data od všech producentů, se kterými sdílejí téma. Producenti odesílají data přímo Spotřebitelům, aniž by potřebovali brokera nebo centralizovanou aplikaci pro zprostředkování komunikace. \cite{DDS_PubSub}
 
 Jak je zobrazeno na obrázku \ref{fig:DDSarch} v \acs{DDS} se objekty, které publikují data, nazývají \textit{DataWriters} a objekty, které odebírají data, jsou \textit{DataReaders}. \textit{DataWriters} a \textit{DataReaders} jsou spojeni s jedním objektem \textit{Topic}, který tato data popisuje.
 
@@ -158,7 +158,7 @@ Při dynamickém hledání bodů v síti \acs{DDS} zjistí, zda koncový bod pub
     \item MD PnP (Medical Device \uv{Plug-and-Play})
     \item GVA (Generic Vehicle Architecture)
     \item NGVA (NATO Generic Vehicle Architecture)
-    \item ROS2 (Robot Operating System 2) \\[0.2cm]
+    \item ROS 2 (Robot Operating System 2) \\[0.2cm]
 \end{itemize}
 
 \acs{DDS} má rozsáhlý seznam různých instalací, které jsou často kritické. \cite{ROS2DDS}
@@ -210,7 +210,7 @@ Na obrázku \ref{fig:MAV1} je zobrazena struktura MAVLink zprávy.
     \end{itemize}
     \item \texttt{SEQ}: Pořadové číslo paketu pro zprávy skládající se z víc paketů
     \item \texttt{SYS ID}: Číslo systému v síti (vozidlo)
-    \item \texttt{COMP ID}: Číslo komponenty na definovaném systému (kamera, autopilot, ...)
+    \item \texttt{COMP ID}: Číslo komponenty v definovaném systému (kamera, autopilot, ...)
     \item \texttt{MSG ID}: Číslo zprávy
     \item \texttt{PAYLOAD}: Data
     \begin{itemize}
@@ -239,7 +239,7 @@ Na trhu existuje velké množství hobby autopilotů, nebo profesionálních ře
 \begin{itemize}
     \item PX4
     \item ArduPilot
-    \item AutoQuad 6 AutoPilot
+    \item AutoQuad 6 Autopilot
     \item iNAV
     \item SmartAP Autopilot\\
 \end{itemize}
@@ -293,7 +293,7 @@ Mavros je rozšiřitelný komunikační MAVLink uzel (\textit{node}) pro ROS (RO
     \item Komunikace s autopilotem nebo pozemní stanicí přes sériový port, UDP nebo TCP
     \item Nástroje pro manipulaci s parametry
     \item Nástroje pro manipulaci s bodmi trasy (\textit{waypoints})
-    \item Podpora módu OFFBOARD
+    \item Podpora letového režimu \textit{offboard}
     \item Konverze geografických souřadnic
 \end{itemize}
 

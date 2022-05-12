@@ -1,6 +1,6 @@
 \chapter{Simulace ve virtuálním prostředí}
 
-Simulátory umožňují letovému kódu PX4 ovládat počítačem namodelovaný dron v simulovaném \uv{světě}. S tímto dronem je možné komunikovat stejně jako se skutečným dronem pomocí QGroundControl, offboard API nebo rádiového ovladače/gamepadu. 
+Simulátory umožňují letovému kódu PX4 ovládat počítačem namodelovaný dron v simulovaném \uv{světě}. S tímto dronem je možné komunikovat stejně jako se skutečným dronem pomocí software QGroundControl, \textit{offboard} API nebo rádiového ovladače/gamepadu. 
 
 PX4 podporuje jak simulaci \acs{SITL} (\textit{\acl{SITL}}), kde PX4 firmware (program řídící jednotky) běží na počítači, nebo simulaci \acs{HITL} (\textit{\acl{HITL}}), kde PX4 firmware běží na skutečné řídící jednotce a vše ostatní (fyzika reálného světa) je spuštěno na počítači. \cite{PX4docs}
 
@@ -47,9 +47,9 @@ Následující simulátory jsou podporovány systémem PX4:
 
 Simulátor Gazebo je vysoce doporučen pro PX4 \textit{\acl{SITL}} simulaci.
 
-Gazebo je dobře navržený a otestovaný simulátor, umožňující rychlé testování algoritmů, návrh robotů a trénování systémů s umělou inteligencí v realistických scénářích. Nabízí možnost přesně a efektivně simulovat populace robotů ve složitých vnitřních i venkovních prostředích. Gazebo se běžně používá pro práci s ROS (ROS 2). \cite{GAZ}
+Gazebo je dobře navržený a otestovaný simulátor, umožňující rychlé testování algoritmů, návrh robotů a trénování systémů s umělou inteligencí v realistických scénářích. Nabízí možnost přesně a efektivně simulovat populace robotů ve složitých vnitřních i venkovních prostředích. Gazebo se běžně používá pro práci s ROS (ROS 2).  \cite{ROSROBOT}
 
-Podporovaná vozidla \acs{SITL} simulace PX4 v simulátoru Gazebo jsou:
+Podporovaná vozidla \acs{SITL} simulace PX4 v simulátoru Gazebo jsou: \cite{GAZ}
 
 \begin{itemize}
     \item dron
