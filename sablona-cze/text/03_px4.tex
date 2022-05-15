@@ -37,7 +37,7 @@ Moduly spolu komunikují prostřednictvím sběrnice \textit{publish-subscribe} 
 
 \begin{figure}[!ht]
     \begin{center}
-        \includegraphics[scale=0.44]{obrazky/PX41}
+        \includegraphics[scale=0.46]{obrazky/PX41}
     \end{center}
     \caption[Komplexní strukturální architektura PX4 software]{Komplexní strukturální architektura PX4 software \cite{PX4docs}.}
     \label{fig:PX4_Arch}
@@ -45,13 +45,13 @@ Moduly spolu komunikují prostřednictvím sběrnice \textit{publish-subscribe} 
 
 \subsection{Systém s PX4 řídící jednotkou}
 
-Na obrázku \ref{fig:PX4_FC} je naznačená architektura systému založeného na řídící jednotce (\textit{flight controller}). Řídící jednotka zabezpečuje sběr dat ze senzorů, ovládání akčních členů dronu (pohony, serva, ...), řízení dronu na základě dat ze senzorů a povelů z RC rádia a v neposlední řadě stabilizaci dronu.
+Na obrázku \ref{fig:PX4_FC} je naznačená architektura systému založeného na řídící jednotce (\textit{flight controller}). Řídící jednotka zabezpečuje sběr dat ze senzorů, ovládání akčních členů dronu (pohony, serva, ...), řízení dronu na základě dat ze senzorů a povelů\break z RC rádia a v neposlední řadě stabilizaci dronu.
 
 Do systému PX4 je možné zasílat povely z pozemní stanice (\textit{Ground Station}) přes protokol \textit{MAVlink} pomocí telemetrické rádiové soupravy.
 
 \begin{figure}[!ht]
     \begin{center}
-        \includegraphics[scale=0.36]{obrazky/PX42}
+        \includegraphics[scale=0.37]{obrazky/PX42}
     \end{center}
     \caption[Jednoduchý systém založený na řídící jednotce s PX4 firmware]{Jednoduchý systém založený na řídící jednotce s PX4 firmware \cite{PX4docs}.}
     \label{fig:PX4_FC}
@@ -59,13 +59,13 @@ Do systému PX4 je možné zasílat povely z pozemní stanice (\textit{Ground St
 
 \subsection{Systém s PX4 řídící jednotkou a počítačem pro řízení mise}
 
-Na obrázku \ref{fig:PX4_FC_PC} je zobrazená architektura systému PX4 založeného na řídící jednotce a palubním počítači pro řízení mise. Řídící jednotka zabezpečuje sběr dat ze senzorů a ovládání akčních členů dronu (pohony, serva, ...). Komunikaci mezi řídící jednotkou a palubním počítači zabezpečuje protokol MAVlink, nebo \acs{RTPS} (\acl{RTPS}).
+Na obrázku \ref{fig:PX4_FC_PC} je zobrazená architektura systému PX4 založeného na řídící jednotce a palubním počítači pro řízení mise. Řídící jednotka zabezpečuje sběr dat ze senzorů a ovládání akčních členů dronu (pohony, serva, ...). Komunikaci mezi řídící jednotkou a palubními počítači zabezpečuje protokol MAVlink nebo \acs{RTPS} (\acl{RTPS}).
 
-Palubní počítač pro řízení mise poskytuje pokročilé funkce, jako jsou například vyhýbání se objektům. Obvyklým operačním systémem je Linux s ROS (ROS 2) z důvodu, podpory knihoven na předcházení kolizím a z důvodu, že ROS 2 a PX4 využívají pro komunikaci s okolím stejný komunikační \acs{DDS} (\acl{DDS}) middleware.
+Palubní počítač pro řízení mise poskytuje pokročilé funkce, jako jsou například vyhýbání se objektům. Obvyklým operačním systémem je Linux s ROS (ROS 2)\break z důvodu, podpory knihoven na předcházení kolizím, a také, že ROS 2 a PX4 využívají pro komunikaci s okolím stejný komunikační \acs{DDS} (\acl{DDS}) middleware.
 
 \begin{figure}[!ht]
     \begin{center}
-        \includegraphics[scale=0.37]{obrazky/PX43}
+        \includegraphics[scale=0.39]{obrazky/PX43}
     \end{center}
     \caption[Systém založený na PX4 řídící jednotce a palubním počítači pro řízení mise]{Systém založený na PX4 řídící jednotce a palubním počítači pro řízení mise \cite{PX4docs}.}
     \label{fig:PX4_FC_PC}
@@ -75,32 +75,32 @@ Palubní počítač pro řízení mise poskytuje pokročilé funkce, jako jsou n
 
 Kód PX4 je zdarma k použití a úpravě za podmínek permisivní licence \textit{BSD 3-clause license} \cite{BSDlicense}.
 
-Redistribuce a použití ve zdrojové a binární formě, s úpravami nebo bez nich, jsou povoleny za předpokladu, že jsou splněny následující podmínky:
+Redistribuce a použití ve zdrojové a binární formě s úpravami nebo bez nich, jsou povoleny za předpokladu, že jsou splněny následující podmínky:
 
-1. Redistribuce zdrojového kódu musí obsahovat výše uvedenou poznámku o autorských právech, tento seznam podmínek a následující prohlášení o vyloučení odpovědnosti.
+1. Redistribuce zdrojového kódu musí obsahovat výše uvedenou poznámku\break o autorských právech, tento seznam podmínek a následující prohlášení o vyloučení odpovědnosti.
 
-2. Redistribuce v binární formě musí reprodukovat výše uvedenou poznámku o autorských právech, tento seznam podmínek a následující prohlášení o vyloučení odpovědnosti v dokumentaci a/nebo jiných materiálech dodávaných s distribucí.
+2. Redistribuce v binární formě musí reprodukovat výše uvedenou poznámku\break o autorských právech, tento seznam podmínek a následující prohlášení o vyloučení odpovědnosti v dokumentaci a/nebo jiných materiálech dodávaných s distribucí.
 
 3. Jméno držitele autorských práv ani jména jeho přispěvatelů nesmí být použita k podpoře nebo propagaci produktů odvozených z tohoto software bez předchozího výslovného písemného povolení.
 
 \section{Letové režimy PX4}
 \label{sec:letRez}
 
-Letové režimy určují chování PX4 autopilota a tím výrazně ovlivňují vlastnosti dronu během letu. Režimy poskytují uživateli různé úrovně pomoci autopilota od automatizace jednoduchých úkolů, jako je vzlet nebo přistání až po komplexní řízení autonomní mise.
+Letové režimy určují chování PX4 autopilota a tím výrazně ovlivňují vlastnosti dronu během letu. Režimy poskytují uživateli různé úrovně pomoci autopilota od automatizace jednoduchých úkolů, jako je vzlet nebo přistání, až po komplexní řízení autonomní mise.
 
-Přepínat mezi letovými režimy je možné pomocí pozemní stanice v software QGroundControl, pomocí nadřazeného počítače pro řízení mise, nebo pomocí dálkového ovladače. \cite{PX4docs} %Obrázek \ref{fig:LETREZ} zobrazuje logiku přepínání letových režimů v řídící jednotce s firmware PX4. 
+Přepínat mezi letovými režimy je možné pomocí pozemní stanice v software QGroundControl, pomocí nadřazeného počítače pro řízení mise nebo pomocí dálkového ovladače. \cite{PX4docs} %Obrázek \ref{fig:LETREZ} zobrazuje logiku přepínání letových režimů v řídící jednotce s firmware PX4. 
 
 \subsection{Manuální režimy}
 
-V manuálních režimech má uživatel přímou kontrolu nad dronem pomocí RC ovladače. Pohyb vozidla vždy následuje pohyb páky, ale úroveň nebo typ odezvy se mění v závislosti na letovém režimu. Pro multikoptéry existují 2 manuální režimy:
+V manuálních režimech má uživatel přímou kontrolu nad dronem pomocí RC ovladače. Pohyb vozidla vždy následuje pohyb páky, ale úroveň nebo typ odezvy se mění v závislosti na letovém režimu. Pro multikoptéry existují dva manuální režimy:
 
 \subsubsection{Stabilized}
 
-Vstupy z RC vysílačky se interpretují jako příkazy o uhlu náklonu, úhlu sklonu a rychlosti stáčení. Příkaz z plynové páky je předán přímo do výstupního směšovače. Autopilot reguluje náklon dronu na nulu, když jsou páky na RC vysílači vycentrovány. V tomto režimu se poloha může měnit vlivem větru.
+Vstupy z RC vysílačky se interpretují jako příkazy o úhlu náklonu, úhlu sklonu\break a rychlosti stáčení. Příkaz z plynové páky je předán přímo do výstupního směšovače. Autopilot reguluje náklon dronu na nulu, když jsou páky na RC vysílači vycentrovány. V tomto režimu se poloha může měnit vlivem větru.
 
 \subsubsection{Acro}
 
-Vstupy z RC vysílačky se interpretují jako příkazy o míře naklánění, sklánění a stáčení. Pokud jsou páky na RC vysílačce vycentrovány, náklon multikoptéry se nezmění. Tento režim umožňuje lepší manévrovatelnost dronu, ale zároveň vyžaduje větší letecké zručnosti pilota.
+Vstupy z RC vysílačky se interpretují jako příkazy o míře naklánění, sklánění\break a stáčení. Pokud jsou páky na RC vysílačce vycentrovány, náklon multikoptéry se nezmění. Tento režim umožňuje lepší manévrovatelnost dronu, ale zároveň vyžaduje větší letecké zručnosti pilota.
 
 \subsection{Asistované režimy}
 
@@ -147,7 +147,7 @@ PX4 autopilot může ovládat dron v těchto autonomních leteckých režimech: 
 \noindent\textbf{Mission}
 
 \begin{itemize}
-    \item Dron vykoná předdefinovanou misi, která byla nahrána do řídící. jednotky
+    \item Dron vykoná předdefinovanou misi, která byla nahrána do řídící jednotky.
 \end{itemize}
 
 \noindent\textbf{Follow Me}
@@ -159,7 +159,7 @@ PX4 autopilot může ovládat dron v těchto autonomních leteckých režimech: 
 \noindent\textbf{Offboard}
 
 \begin{itemize}
-    \item Dron se řídí nastavenými hodnotami pozice, rychlosti, nebo natočení poskytovanými z nadřazeného systému (přez MAVLink, nebo \acs{RTPS})
+    \item Dron se řídí nastavenými hodnotami pozice, rychlosti, nebo natočení poskytovanými z nadřazeného systému (přez MAVLink nebo \acs{RTPS})
 \end{itemize}
 
 %\begin{figure}[!ht]
@@ -175,7 +175,7 @@ PX4 autopilot může ovládat dron v těchto autonomních leteckých režimech: 
 
 QGroundControl je software, který poskytuje plnou kontrolu letu a plánování mise pro jakýkoli dron s podporou MAVLink. Jeho primárním cílem je snadné použití pro profesionální uživatele a vývojáře. Veškerý kód je open source, takže je možné přispívat a dál ho vyvíjet \cite{QGround}.
 
-Pomocí QGroundControl je možné nahrát nejnovější PX4, nebo Ardupilot firmware do řídící jednotky, nastavit typ konstrukce dronu, ladit parametry regulace a vytvářet autonomní mise pomocí waypointů. Veškeré nastavení dronu a misí je jednoduché a velmi intuitivní.
+Pomocí QGroundControl je možné nahrát nejnovější PX4 nebo Ardupilot firmware do řídící jednotky, nastavit typ konstrukce dronu, ladit parametry regulace a vytvářet autonomní mise pomocí waypointů. Veškeré nastavení dronu a misí je jednoduché a velmi intuitivní.
 
 Obrázek \ref{fig:QGC} zobrazuje základní obrazovku software QGroundControl.
 
@@ -214,7 +214,7 @@ Systém QGroundControl podporuje velké množství typů konstrukcí dronů, let
 \subsection{Plánování bezpilotní mise}
 \label{subs:planovani}
 
-Software QGroundControl nabízí možnost intuitivního plánování bezpilotních misí. Vlastní misi je možné naplánovat pomocí waypointů, nebo pomocí 3 přednastavených plánů pro bezpilotní mise: \cite{QGround2}
+Software QGroundControl nabízí možnost intuitivního plánování bezpilotních misí. Vlastní misi je možné naplánovat pomocí waypointů nebo pomocí tří přednastavených plánů pro bezpilotní mise: \cite{QGround2}
 
 \begin{itemize}
     \item Průzkum prostředí
@@ -224,7 +224,7 @@ Software QGroundControl nabízí možnost intuitivního plánování bezpilotní
 
 \subsubsection{Průzkum prostředí}
 
-Pomocí tohoto plánu se vytvoří mřížkový letový vzor nad polygonální oblastí definovanou uživatelem. Oblast je možné definovat jako mnohoúhelník nebo kruh. Je zde taky možné nastavit mřížku přeletů, výšku nad povrchem jako absolutní, nebo relativní vůči terénu. Program umožňuje nastavení snímkování prostředí s podporou \textit{geotagging}\footnote{Geotagging představuje přidávání geografických metadat k různým médiím jako jsou např.: obrázky.}. Obrázek \ref{fig:QGC2} zobrazuje nastavení autonomní mise s průzkumem prostředí.
+Pomocí tohoto plánu se vytvoří mřížkový letový vzor nad polygonální oblastí definovanou uživatelem. Oblast je možné definovat jako mnohoúhelník nebo kruh. Je zde taky možné nastavit mřížku přeletů, výšku nad povrchem jako absolutní nebo relativní vůči terénu. Program umožňuje nastavení snímkování prostředí s podporou \textit{geotagging}\footnote{Geotagging představuje přidávání geografických metadat k různým médiím jako jsou např.: obrázky.}. Obrázek \ref{fig:QGC2} zobrazuje nastavení autonomní mise s průzkumem prostředí.
 
 \begin{figure}[!ht]
     \begin{center}
@@ -236,7 +236,7 @@ Pomocí tohoto plánu se vytvoří mřížkový letový vzor nad polygonální o
 
 \subsubsection{Skenování konstrukcí}
 
-Pomocí plánu na skenování konstrukcí je možné naplánovat bezpilotní misi zaměřenou na snímkování svislých povrchů. Snímky se používají na vizuální kontrolu budov, nebo tvorbu 3D modelů konstrukcí. Obrys konstrukce je možné zadat jako mnohoúhelník nebo kruh. Dron bude oblétat celou budovu předem v nastavených výškách tak, aby kamera směřovala vždy na budovu. Po zadání konkrétní kamery, objektivu a rozlišení snímkování [cm/px] si program sám dopočítá vhodnou letovou vzdálenost od budovy a výšku jednotlivých letových vrstev. Na obrázku \ref{fig:QGC3} je zobrazeno nastavení autonomní mise pro skenování konstrukcí.
+Pomocí plánu na skenování konstrukcí je možné naplánovat bezpilotní misi zaměřenou na snímkování svislých povrchů. Snímky se používají na vizuální kontrolu budov nebo tvorbu 3D modelů konstrukcí. Obrys konstrukce je možné zadat jako mnohoúhelník nebo kruh. Dron bude oblétat celou budovu předem v nastavených výškách tak, aby kamera směřovala vždy na budovu. Po zadání konkrétní kamery, objektivu a rozlišení snímkování [cm/px] si program sám dopočítá vhodnou letovou vzdálenost od budovy a výšku jednotlivých letových vrstev. Na obrázku \ref{fig:QGC3} je zobrazeno nastavení autonomní mise pro skenování konstrukcí.
 
 \begin{figure}[!ht]
     \begin{center}
@@ -248,7 +248,7 @@ Pomocí plánu na skenování konstrukcí je možné naplánovat bezpilotní mis
 
 \subsubsection{Skenování koridoru}
 
-Letový plán pro skenování koridoru je vhodný pro sledování křivky (například pro průzkum silnice). Je možné si zde nastavit parametry letového vzoru jako jsou výška přeletu a hustota přeletů nad oblastí. Po zadání parametrů kamery a rozlišení snímkování [cm/px] si program sám dopočítá optimální letový vzor. Obrázek \ref{fig:QGC4} zobrazuje nastavení letového plánu pro skenování koridoru.
+Letový plán pro skenování koridoru je vhodný pro sledování křivky (například\break pro průzkum silnice). Je možné si zde nastavit parametry letového vzoru jako jsou výška přeletu a hustota přeletů nad oblastí. Po zadání parametrů kamery a rozlišení snímkování [cm/px] si program sám dopočítá optimální letový vzor. Obrázek \ref{fig:QGC4} zobrazuje nastavení letového plánu pro skenování koridoru.
 
 \begin{figure}[!ht]
     \begin{center}

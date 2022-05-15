@@ -1,16 +1,18 @@
 \chapter{Firmware pro řízení bezpilotních letadel}
 
+Existuje velké množství \textit{open-source} nebo komerčních projektů, které řeší problematiku firmwaru pro řízení bezpilotních letadel. Projekty jsou směrovány na různé platformy, mají různé využití a jsou vhodné pro jiné typy bezpilotních misí. Proto je důležité na začátku práce definovat, které řešení vyhovuje našim požadavkům. \break V této kapitole jsou popsány základní vlastnosti některých firmwarů pro řízení bezpilotních letadel.
+
 \section{BetaFlight}
 
 BetaFlight je \textit{open-source} firmware pro řízení letu používaný k létání s multikoptérami a s letadly s pevnými křídly. Firmware se zaměřuje na letový výkon, špičkové funkce a širokou podporu platforem.
 
-BetaFlight podporuje velkou škálu řídících jednotek, které mají alespoň \textit{STM32F4} procesor. Software pro nastavování parametrů (\textit{BetaFlight Configurator}) běží na Windows, Mac OS, Linux a Android.
+BetaFlight podporuje velkou škálu řídících jednotek, které mají alespoň \textit{STM32F4} procesor. Software pro nastavování parametrů (\textit{BetaFlight Configurator}) běží\break na Windows, Mac OS, Linux a Android.
 
 Firmware Betaflight podporuje komunikaci s dálkovými ovládači od většiny výrobců, jako jsou FrSky, Graupner, Spektrum, DJI a FlySky. Řídící jednotku s BetaFlight firmware je možné povelovat i z nadřazeného systému pomocí \textit{\acs{MSP}} \footnote{\acs{MSP} (\acl{MSP}) je komunikační protokol pro posílání informací o telemetrii, dat ze snímačů a ovládání \cite{ARDU}}. \cite{BetaF}
 
 \section{INAV}
 
-INAV autopilot je odvozený od BetaFlight a zaměřuje se hlavně na autonomní lítání. Podporuje velké množstvi modelů od závodních a freestyle dronů, přez letadla až po rovery a jiné kolové vozidla.
+INAV autopilot je odvozený od BetaFlight a zaměřuje se hlavně na autonomní lítání. Podporuje velké množství modelů od závodních a freestyle dronů, přes letadla až\break po rovery a jiné kolové vozidla.
 
 Firmware podporuje širokou škálu řídících jednotek od různých výrobců, podporuje zpracování dat ze senzorů a umožňuje ukládání dat o letu a vnitřním stavu dronu v reálném čase (\textit{blackbox}). \cite{INAV}
 
@@ -18,13 +20,13 @@ Software\textbf{} \textit{INAV Configurator} nabízí plánování \textit{waypo
 
 \section{Firmware pro řídící jednotku Pixhawk}
 
-Existují dvě hlavní větve vývoje firmware pro řídící jednotku Pixhawk. Jednou platformou je open source projekt ArduPilot \cite{ARDU}, který podporuje velké množství bezpilotních prostředků a umožňuje vytváření autonomních misí. Druhým projektem je profesionální autopilot PX4 \cite{PX4ORG}. Velkou výhodou obou projektů je, že jsou do velké části kompatibilní, například software pro pozemní stanice QGroundControl z platformy PX4 může komunikovat s řídící jednotkou s firmware od ArduPilot a naopak. Vzájemná kompatibilita je zajištěna využitím stejného komunikačního protokolu MAVLink. Výhoda protokolu MAVLink spočívá aj v tom, že oba firmware můžou komunikovat s ROS (Robot Operating System) přes MAVROS\footnote{MAVROS je komunikační ovládač (\textit{driver}) pro komunikaci mezi ROS a autopiloty s MAVLink protokolem}
+Existují dvě hlavní větve vývoje firmware pro řídící jednotku Pixhawk. Jednou platformou je open source projekt ArduPilot \cite{ARDU}, který podporuje velké množství bezpilotních prostředků a umožňuje vytváření autonomních misí. Druhým projektem je profesionální autopilot PX4 \cite{PX4ORG}. Velkou výhodou obou projektů je, že jsou\break do velké části kompatibilní, například software pro pozemní stanice QGroundControl z platformy PX4 může komunikovat s řídící jednotkou s firmware od ArduPilot a naopak. Vzájemná kompatibilita je zajištěna využitím stejného komunikačního protokolu MAVLink. Výhoda protokolu MAVLink spočívá i v tom, že oba firmware můžou komunikovat s ROS (Robot Operating System) přes MAVROS\footnote{MAVROS je komunikační ovládač (\textit{driver}) pro komunikaci mezi ROS a autopiloty s MAVLink protokolem}
 
 \subsection{ArduPilot}
 
-ArduPilot je open source autopilot podporující mnoho typů vozidel, například multikoptéry, vrtulníky, letadla s pevnými křídly, čluny, ponorky, rovery a další. Projekt ArduPilot má společnou historii s PX4, ale v minulosti se tyto dva projekty oddělili. Proto mají oba projekty do velké míry podobné využití a míří na stejnou platformu.
+ArduPilot je open source autopilot podporující mnoho typů vozidel, například multikoptéry, vrtulníky, letadla s pevnými křídly, čluny, ponorky, rovery a další. Projekt ArduPilot má společnou historii s PX4, ale v minulosti se tyto dva projekty oddělily. Proto mají oba projekty do velké míry podobné využití a míří na stejnou platformu.
 
-Zdrojový kód projektu ArduPilot je vyvíjen širokým spektrem profesionálů a nadšenců, takže výhodou je velká komunita poskytující řešení na řadu problémů.
+Zdrojový kód projektu ArduPilot je vyvíjen širokým spektrem profesionálů\break a nadšenců, takže výhodou je velká komunita poskytující řešení na řadu problémů.
 
 Frimware ArduPilot je založený na ChibiOS \acs{RTOS} (\acl{RTOS}). ArduPilot taky poskytuje možnost simulace letového kódu jak simulací \acs{SITL} (\acl{SITL}), tak simulací \acs{HITL} (\acl{HITL}). \cite{ARDU}
 

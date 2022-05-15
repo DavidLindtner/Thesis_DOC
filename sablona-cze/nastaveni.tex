@@ -10,11 +10,11 @@
   %english-slovak,	% originální jazyk je angličtina, překlad je slovensky
 %
 %%% Z následujících voleb typu práce lze použít pouze jednu
-  %semestral,		    % semestrální práce (nesází se abstrakty, prohlášení, poděkování) (výchozí)
+  %semestral,		  % semestrální práce (nesází se abstrakty, prohlášení, poděkování) (výchozí)
   %bachelor,			%	bakalářská práce
-  master,			    % diplomová práce
-  %treatise,			% pojednání o dizertační práci
-  %doctoral,			% dizertační práce
+  master,			  % diplomová práce
+  %treatise,			% pojednání o disertační práci
+  %doctoral,			% disertační práce
 %
 %%% Z následujících voleb zarovnání objektů lze použít pouze jednu
 %  left,				  % rovnice a popisky plovoucích objektů budou zarovnány vlevo
@@ -47,11 +47,16 @@
 % Nastavení oponenta se uplatní pouze v prezentaci k obhajobě;
 % v případě, že nechcete, aby se na titulním snímku prezentace zobrazoval oponent, pouze příkaz zakomentujte;
 % u obhajoby semestrální práce se oponent nezobrazuje (jelikož neexistuje)
+% U dizertační práce jsou typicky dva až tři oponenti. Pokud je chcete mít na titulním slajdu, prosím ručně odkomentujte a upravte jejich jména v definici "VUT title page" v souboru thesis.sty.
 \opponent[doc.\ Mgr.]{Křestní}{Příjmení}[Ph.D.]
 
 %%% Název práce
 %  Parametr ve složených závorkách {} je název v originálním jazyce,
-%  parametr v hranatých závorkách [] je překlad (podle toho jaký je originální jazyk)
+%  parametr v hranatých závorkách [] je překlad (podle toho jaký je originální jazyk).
+%  V případě, že název Vaší práce je dlouhý a nevleze se celý do zápatí prezentace, použijte příkaz
+%  \def\insertshorttitle{Zkác.\ náz.\ práce}
+%  kde jako parametr vyplníte zkrácený název. Pokud nechcete zkracovat název, budete muset předefinovat,
+%  jak se vytváří patička slidu. Viz odkaz: https://bit.ly/3EJTp5A
 \title[Simulation of Unmanned Aircrafts in a Virtual Environment]{Simulace bezpilotních letadel ve virtuálním prostředí}
 
 %%% Označení oboru studia
@@ -104,23 +109,19 @@
 
 %%% Abstrakt
 \abstract
-[DOKONCIT The semester thesis deals with the issue of simulation of drone missions in a virtual environment. The aim of the work is to demonstrate a elementary autonomous air mission in the simulated environment Gazebo - ROS2. The work emphasizes the stability of the software solution and internal communication between critical components of the air mission.
+[The master thesis deals with the issue of simulation of unmanned aircraft missions in a virtual environment. The aim of the work is to demonstrate basic and more advanced autonomous aerial missions in the simulated environment Gazebo - ROS 2. The work emphasizes the stability of the software solution and the stability of the communication between critical components of the aerial mission.
 ]{%
-DOKONCIT Semestrální práce se zabývá problematikou simulace misí bezpilotních letadel ve virtuálním prostředí. Cílem práce je demonstrovat jednoduchou autonomní leteckou misi v simuovaném prostředí Gazebo - ROS2. Práce dává důraz na stabilitu softwarového řešení a vnitřní komunikace mezi kritickými komponenty letecké mise.
+Diplomová práce se zabývá problematikou simulace misí bezpilotních letadel ve virtuálním prostředí. Cílem práce je demonstrovat základní i pokročilejší autonomní letecké mise v simulovaném prostředí Gazebo - ROS 2. Práce dává důraz na stabilitu softwarového řešení a stabilitu komunikace mezi kritickými komponenty letecké mise.
 }
 
 %%% Klíčová slova
 \keywrds[%
-DOKONCIT 
-Autonomous mission, Robotics, Drone, Pixhawk, PX4, Autopilot uORB, DDS, ROS2, Gazebo, Simulation
+Autonomous mission, Robotics, Drone, Pixhawk, PX4, Autopilot uORB, DDS, RTPS, MAVlink, Mavros, ROS 2, Gazebo, Simulation
 ]{%
-DOKONCIT
-Autonomní mise, Robotika, Dron, Pixhawk, PX4, Autopilot, uORB, DDS, ROS2, Gazebo, Simulace
+Autonomní mise, Robotika, Dron, Pixhawk, PX4, Autopilot, uORB, DDS, RTPS, MAVLink, Mavros ROS 2, Gazebo, Simulace
 }
 
 %%% Poděkování
 \acknowledgement{%
-DOKONCIT 
-Rád bych poděkoval vedoucímu diplomové práce panu Ing.~XXX YYY, Ph.D.\ za odborné vedení, konzultace, trpělivost a podnětné návrhy k~práci.
-Poďakovanie Milošovi Cihlářovi za gazebo world
+Rád bych poděkoval vedoucímu diplomové práce panu Ing.~Petrovi Gabrlíkovi, Ph.D.\ za odborné vedení, trpělivost, čas strávený konzultace a podnětné návrhy k~práci. Dále bych rád poděkoval Bc. Milošovi Cihlářovi za poskytnutí dat k sestavení simulačního modelu okolí naší školy, které byli výsledkem jeho diplomové práce.
 }%

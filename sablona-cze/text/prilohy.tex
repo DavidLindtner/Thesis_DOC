@@ -1,54 +1,71 @@
-\chapter{Přílohy}
-
 \chapter{Obsah elektronické přílohy}
-Elektronická příloha je často nedílnou součástí semestrální nebo závěrečné práce.
-Vkládá se do informačního systému VUT v~Brně ve vhodném formátu (ZIP, PDF\,\dots).
 
-Nezapomeňte uvést, co čtenář v~této příloze najde.
-Je vhodné okomentovat obsah každého adresáře, specifikovat, který soubor obsahuje důležitá nastavení, který soubor je určen ke spuštění, uvést nastavení kompilátoru atd.
-Také je dobře napsat, v~jaké verzi software byl kód testován (např.\ Matlab 2018b).
-Pokud bylo cílem práce vytvořit hardwarové zařízení,
-musí elektronická příloha obsahovat veškeré podklady pro výrobu (např.\ soubory s~návrhem DPS v~Eagle).
-
-Pokud je souborů hodně a jsou organizovány ve více složkách, je možné pro výpis adresářové struktury použít balíček \href{https://www.ctan.org/pkg/dirtree}{\texttt{dirtree}}.
+Na konci diplomové práce je přiložené CD. V této kapitole je seznam nejdůležitějších
+složek a souborů, které jsou uloženy na CD.
 
 \bigskip
 
 {\small
 %
 \dirtree{%.
-.1 /\DTcomment{kořenový adresář přiloženého archivu}.
-.2 logo\DTcomment{loga školy a fakulty}.
-.3 BUT\_abbreviation\_color\_PANTONE\_EN.pdf.
-.3 BUT\_color\_PANTONE\_EN.pdf.
-.3 FEEC\_abbreviation\_color\_PANTONE\_EN.pdf.
-.3 FEKT\_zkratka\_barevne\_PANTONE\_CZ.pdf.
-.3 UTKO\_color\_PANTONE\_CZ.pdf.
-.3 UTKO\_color\_PANTONE\_EN.pdf.
-.3 VUT\_barevne\_PANTONE\_CZ.pdf.
-.3 VUT\_symbol\_barevne\_PANTONE\_CZ.pdf.
-.3 VUT\_zkratka\_barevne\_PANTONE\_CZ.pdf.
-.2 obrazky\DTcomment{ostatní obrázky}.
-.3 soucastky.png.
-.3 spoje.png.
-.3 ZlepseneWilsonovoZrcadloNPN.png.
-.3 ZlepseneWilsonovoZrcadloPNP.png.
-.2 pdf\DTcomment{pdf stránky generované informačním systémem}.
-.3 student-desky.pdf.
-.3 student-titulka.pdf.
-.3 student-zadani.pdf.
-.2 text\DTcomment{zdrojové textové soubory}.
-.3 literatura.tex.
-.3 prilohy.tex.
-.3 reseni.tex.
-.3 uvod.tex.
-.3 vysledky.tex.
-.3 zaver.tex.
-.3 zkratky.tex.
-%.2 navod-sablona\_FEKT.pdf\DTcomment{návod na používání šablony}.
-.2 sablona-obhaj.tex\DTcomment{hlavní soubor pro sazbu prezentace k~obhajobě}.
-%.2 readme.txt\DTcomment{soubor s~popisem obsahu CD}.
-.2 sablona-prace.tex\DTcomment{hlavní soubor pro sazbu kvalifikační práce}.
-.2 thesis.sty\DTcomment{balíček pro sazbu kvalifikačních prací}.
+.1 /\DTcomment{kořenový adresář přiloženého CD}.
+.2 px4\_config/\DTcomment{konfigurační skripty popsané v \texttt{readme.txt}}.
+.3 VUT\_1000k/.
+.3 gazebo\_sitl\_multiple\_run\_coordinates.sh.
+.3 readme.txt.
+.3 vut\_1000k.world.
+.2 rosbag/rosbag2\_2022\_05\_05-08\_54\_19/\DTcomment{data pro sledování dyn. objektu}.
+%.3 metadata.yaml.
+%.3 rosbag2\_2022\_05\_05-08\_54\_19\_0.db3.
+%.3 rosbag2\_2022\_05\_05-08\_54\_19\_0.db3-shm.
+%.3 rosbag2\_2022\_05\_05-08\_54\_19\_0.db3-wal.
+.2 src/px4\_missions/\DTcomment{zdrojové soubory k misím}.
+.3 launch/\DTcomment{soubory pro spuštění simulací}.
+%.4 multipleDroneGlobPos\_launch.py.
+%.4 multipleDroneLocPos\_launch.py.
+%.4 multipleDroneOT\_launch.py.
+%.4 multipleDroneSpeed\_launch.py.
+.3 params/\DTcomment{soubory s parametry simulací}.
+%.4 absMission1.yaml.
+%.4 locMission1.yaml.
+%.4 locMission2.yaml.
+%.4 absMission3.yaml.
+%.4 mavros1\_param.yaml.
+%.4 mavros2\_param.yaml.
+%.4 mavros3\_param.yaml.
+%.4 velMission1.yaml.
+%.4 velMission2.yaml.
+%.4 velMission3.yaml.
+.3 src/\DTcomment{zdrojové soubory}.
+.4 base/\DTcomment{základní třída řízení dronu}.
+.5 droneBaseMavlink.cpp.
+.5 droneBaseMavlink.hpp.
+.5 droneBaseRTPS.cpp.
+.5 droneBaseRTPS.hpp.
+.4 objectTracking/\DTcomment{mise pro sledování dynamického objektu}.
+.5 objectTrackingDrone.cpp.
+.5 objectTrackingDrone.hpp.
+.4 simple/\DTcomment{základní mise s MAVLink}.
+.5 droneSimple.cpp.
+.5 droneSimple.hpp.
+.4 simpleRTPS/\DTcomment{základní mise s RTPS}.
+.5 droneSimpleRTPS.cpp.
+.5 droneSimpleRTPS.hpp.
+.4 supervised/\DTcomment{mise s nadřazeným uzlem pro sdílení dat}.
+.5 droneSupervised.cpp.
+.5 droneSupervised.hpp.
+.4 missionSupervisor.cpp.
+.4 objectTrackingMission.cpp.
+.4 simpleMission.cpp.
+.4 simpleMissionRTPS.cpp.
+.4 supervisedMission.cpp.
+.3 CMakeList.txt.
+.3 LICENSE.
+.3 package.xml.
+.2 install.md\DTcomment{instalační instrukce}.
+.2 README.md\DTcomment{instrukce pro spuštění simulací}.
+.2 vcs.repos\DTcomment{konfigurační soubor pro VCS}.
+.2 dokumentace/\DTcomment{zdrojové soubory k dokumentaci}.
+.2 DP\_Lindtner.pdf\DTcomment{hlavní soubor dokumentace diplomové práce}.
 }
 }

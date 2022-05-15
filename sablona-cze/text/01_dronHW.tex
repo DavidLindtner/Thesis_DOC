@@ -2,7 +2,7 @@
 
 Práce se zaobírá v první řadě simulací bezpilotních letadel ve virtuálním prostředí, ale z důvodu možné budoucí realizace projektu je nutné pracovat s konkrétními hardwarovými a softwarovými řešeními.
 
-Topologii řídícího systému dronu jsme rozdělili na dvě části. Palubní počítač řídí bezpilotní misi a řídící jednotka ovládá kritické procesy v dronu. Na trhu existuje nepřeberné množství různých komponent pro autonomní mise. Na základě existujících projektů, například \textit{Multi Robot Systems Group} z ČVUT \cite{MRS} jsme zvolili modul Pixhawk jako řídící jednotku. Jako palubní počítač, který ovládá samotnou autonomní misi jsme zvolili jednodeskový počítač Raspberry PI.
+Topologii řídícího systému dronu jsme rozdělili na dvě části. Palubní počítač řídí bezpilotní misi a řídící jednotka ovládá kritické procesy v dronu. Na trhu existuje nepřeberné množství různých komponentů pro autonomní mise. Na základě existujících projektů, například \textit{Multi Robot Systems Group} z ČVUT, \cite{MRS} jsme zvolili modul Pixhawk jako řídící jednotku. Jako palubní počítač, který ovládá samotnou autonomní misi jsme zvolili jednodeskový počítač Raspberry PI.
 
 S touto kombinací jsme schopni řídit velké množství různých autonomních letadel a vozidel jako jsou:
 
@@ -17,9 +17,9 @@ S touto kombinací jsme schopni řídit velké množství různých autonomních
 
 \section{Řídící jednotka Pixhawk}
 
-Pixhawk je otevřený hardwarový projekt, jehož cílem je poskytnout standard pro snadno dostupné a vysoce kvalitní návrhy hardwaru autopilota pro akademické, hobby a vývojářské komunity. \cite{PIX1}
+Pixhawk je otevřený hardwarový projekt, jehož cílem je poskytnout standard\break pro snadno dostupné a vysoce kvalitní návrhy hardwaru autopilota pro akademické, vývojářské a hobby komunity. \cite{PIX1}
 
-Řídící jednotka Pixhawk se využívá pro řízení kritických procesů v dronu jako jsou \textit{fail safe} funkce, ovládání pohonů, stabilizace a čtení kritických snímačů jako jsou GPS, barometr a \acs{IMU} (\acl{IMU}). Do jednotky Pixhawk je možné posílat řídící povely z RC vysílačky a je možné do ní nahrát jednoduchou bezpilotní misi pomocí software QGroundControl nebo MissionPlanner.
+Řídící jednotka Pixhawk se využívá pro řízení kritických procesů v dronu jako jsou \textit{fail safe} funkce, ovládání pohonů, stabilizace a čtení kritických snímačů jako jsou GPS, barometr a \acs{IMU} (\acl{IMU}). Do jednotky Pixhawk je možné posílat řídící povely z RC vysílačky, a je možné do ní nahrát jednoduchou bezpilotní misi pomocí software QGroundControl nebo MissionPlanner.
 
 Existuje několik variant řídící jednotky od značky Pixhawk:
 
@@ -44,11 +44,11 @@ Na obrázku \ref{fig:PIX} je zobrazena řídící jednotka Pixhawk 4. Můžeme s
     \label{fig:PIX}
 \end{figure}
 
-Mezi hlavní výhody řídících jednotek Pixhawk patří kvalitní softwarová podpora, automatické aktualizace firmware pomocí QGroundControl software, flexibilita z hlediska připojených hardwarových periferií a silná komunita uživatelů a vývojářů. Jednotka Pixhawk podporuje simulaci \acs{HITL} (\textit{\acl{HITL}}), což umožňuje test firmwaru a komunikace ještě před samotným vzletem dronu.
+Mezi hlavní výhody řídících jednotek Pixhawk patří kvalitní softwarová podpora, automatické aktualizace firmware pomocí QGroundControl software, flexibilita\break z hlediska připojených hardwarových periferií a silná komunita uživatelů a vývojářů. Jednotka Pixhawk podporuje simulaci \acs{HITL} (\textit{\acl{HITL}}), což umožňuje test firmwaru a komunikace ještě před samotným vzletem dronu.
 
 \section{Palubní počítač}
 
-Jako palubní počítač se na experimentální letecké mise využívá jednodeskový počítač Raspberry PI. Na trhu existuje množství různých variant tohoto široce rozšířeného počítače v rozmezí od levného, malého a úsporného  \textit{Raspberry PI Pico} až po vysoce výkonný počítač \textit{Raspberry PI 4B}.
+Jako palubní počítač se na experimentální letecké mise využívá jednodeskový počítač Raspberry PI. Na trhu existuje množství různých variant tohoto široce rozšířeného počítače v rozmezí od levného, malého a úsporného  \textit{Raspberry PI Pico}, až po vysoce výkonný počítač \textit{Raspberry PI 4B}.
 
 Důležitými výhodami pro aplikace v robotických misích jsou integrace na jeden plošný spoj, nízká proudová spotřeba a možnost spuštění linuxových distribucí. Nejběžnější podporované distribuce jsou Raspberry PI OS, Raspbian, Ubuntu desktop a server.
 

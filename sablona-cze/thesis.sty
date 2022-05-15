@@ -20,8 +20,8 @@
 %% Autor: Jakub Hrabec                                                     %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\fileversion{4.03}  % oproti 4.02 upravy pro vetsi kompatibilitu s nove vzniklou wordovskou sablonou
-\def\filedate{2020/12/22}  %year/month/day
+\def\fileversion{4.07}  % oproti 4.03 upravy hlavne dle dalsich pokynu z fakulty
+\def\filedate{2021/09/22}  %year/month/day
 \def\filename{thesis.sty}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -919,9 +919,9 @@ a~som si plne vedom%
       \providecommand\oponenttext@czech{Oponent}
       \providecommand\oponenttext@english{Opponent}
       \providecommand\oponenttext@slovak{Oponent}
-      \providecommand\oznaceniprace@czech{Pojedn\'{a}n\'{i} o dizerta\v{c}n\'{i} pr\'{a}ci} %podle stud. a zkus. radu VUT z 21.7.2011 se to jmenuje "dizertacni"
+      \providecommand\oznaceniprace@czech{Pojedn\'{a}n\'{i} o diserta\v{c}n\'{i} pr\'{a}ci} %podle stud. a zkus. radu VUT z 21.7.2011 se to jmenuje "dizertacni" | v roce 2021 prodekan vyzaduje "disertacni"
       \providecommand\oznaceniprace@english{Treatise on doctoral thesis}
-      \providecommand\oznaceniprace@slovak{Pojednanie o dizerta\v{c}nej pr\'{a}ci}
+      \providecommand\oznaceniprace@slovak{Pojednanie o diserta\v{c}nej pr\'{a}ci}
       \providecommand\vedoucitext@czech{\v{S}kolitel(ka)}
       \providecommand\vedoucitext@english{Advisor}%{Supervisor}
       \providecommand\vedoucitext@slovak{\v{S}kolite\q{l}(ka)}
@@ -935,9 +935,9 @@ a~som si plne vedom%
       \providecommand\oponenttext@czech{Oponent}
       \providecommand\oponenttext@english{Opponent}
       \providecommand\oponenttext@slovak{Oponent}
-      \providecommand\oznaceniprace@czech{Dizerta\v{c}n\'{\i} pr\'{a}ce} %podle stud. a zkus. radu VUT z 21.7.2011 se to jmenuje "dizertacni" }
+      \providecommand\oznaceniprace@czech{Diserta\v{c}n\'{\i} pr\'{a}ce} %podle stud. a zkus. radu VUT z 21.7.2011 se to jmenuje "dizertacni"  | v roce 2021 prodekan vyzaduje "disertacni"
       \providecommand\oznaceniprace@english{Doctoral thesis}
-      \providecommand\oznaceniprace@slovak{Dizerta\v{c}n\'{a} pr\'{a}ca}
+      \providecommand\oznaceniprace@slovak{Diserta\v{c}n\'{a} pr\'{a}ca}
       \providecommand\vedoucitext@czech{Vedouc\'{\i} pr\'{a}ce}
       \providecommand\vedoucitext@english{Advisor}%{Supervisor}
       \providecommand\vedoucitext@slovak{Ved\'{u}ci pr\'{a}ce}
@@ -1553,7 +1553,7 @@ a~som si plne vedom%
 \@ifclassloaded{beamer}
 {
 % nastaveni popisku pro dalsi slidy
-\def\insertshortauthor{\@Autor}
+\def\insertshortauthor{\@autor}
 \def\insertshorttitle{\title@orig@lang}
 
 % prikaz pro vysazeni VUT titulni stranky prezentace
@@ -1604,6 +1604,8 @@ a~som si plne vedom%
               \ifx\opponent@prijmeni\relax
             \else
               {\slshape \csname oponenttext@\orig@lang\endcsname :}     & \@Oponent \\%
+							%& Ing.\ DRUHÝ OPONENT, Ph.D.\\
+							%& MUDr.\ TŘETÍ OPONENT, CSc.\\
             \fi
           \fi
 
@@ -2088,6 +2090,7 @@ a~som si plne vedom%
 	%\thispagestyle{plain}%
 	%\mbox{}%
 }
+
 
 \endinput
 

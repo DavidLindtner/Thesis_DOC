@@ -5,8 +5,8 @@
   12pt,       				% Velikost základního písma je 12 bodů
   a4paper,    				% Formát papíru je A4
   oneside,      			% Jednostranný tisk
-%twoside,      			% Dvoustranný tisk (kapitoly a další důležité části tedy začínají na lichých stranách)
-  unicode,						% Záložky a metainformace ve výsledném  PDF budou v kódování unicode
+	%twoside,      			% Dvoustranný tisk (kapitoly a další důležité části tedy začínají na lichých stranách)
+	unicode,						% Záložky a metainformace ve výsledném  PDF budou v kódování unicode
 ]{report}				    	% Dokument třídy 'zpráva', vhodná pro sazbu závěrečných prací s kapitolami
 
 \usepackage[utf8]		  %	Kódování zdrojových souborů je UTF-8
@@ -59,7 +59,7 @@
 
 \usepackage{dirtree}	% sazba adresářové struktury
                       % vhodné pro prezentaci obsahu elektronické přílohy (např. CD)
-                      
+
 \usepackage{multicol}
 \usepackage{array,multirow}
 \usepackage{rotating}
@@ -123,7 +123,6 @@
     {Ž}{{\v{Z}}}1
 }
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%      Definice informací o dokumentu             %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -154,14 +153,14 @@
 \begin{document}
 \pagestyle{empty} %vypnutí číslování stránek
 
-%% Vložení desek 
-\includepdf[pages=1]%  buďto generovaných informačním systémem
-  {pdf/desky}% název souboru nesmí obsahovat mezery!
-%% NEBO vytvoření desek z balíčku
-%\makecover
-%%
+%%% Vložení desek -- od září 2021 na žádost fakulty nepoužíváno
+%\includepdf[pages=1]%  buďto generovaných informačním systémem
+  %{pdf/student-desky}% název souboru nesmí obsahovat mezery!
+%%% NEBO vytvoření desek z balíčku
+%%\makecover
+%%%
 %\oddpage % při dvojstranném tisku přidá prázdnou stránku
-% kazdopádně ale:
+%% kazdopádně ale:
 \setcounter{page}{1} %resetovaní čítače stránek -- desky do číslování nezahrnujeme
 
 %% Vložení titulního listu
@@ -242,7 +241,7 @@
 
 %%% Vysázení seznamu příloh
 % (vynechejte, pokud máte dvě nebo méně příloh)
-\listofappendices
+% \listofappendices
 
 %%% Vložení souboru 'text/prilohy' s přílohami
 % Obvykle je přítomen alespoň popis co najdeme na přiloženém médiu

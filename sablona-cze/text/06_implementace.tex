@@ -4,23 +4,23 @@ Jedna možnost pro vytvoření autonomní mise v systému PX4 je pomocí program
 
 Další možnost je vytvoření bezpilotní robotické mise v nadřazeném palubním počítači pomocí ROS 2 \textit{node}, který úkoluje řídící jednotku dronu. Tato možnost je vhodná pro složité mise, kde není před startem známá celá trajektorie letu a řídící algoritmus v palubním počítači ji dopočítává na základě čtení ze snímačů a kamer, nebo na základě povelů z pozemní stanice.
 
-Pro tento případ jsme vytvořili několik ROS 2 uzlů (v C++), které komunikjí s PX4 firmware pomocí Fast RTPS, nebo pomocí MAVLink protokolu. Zdrojový kód je zveřejněný na platformě GitHub \cite{GIT}.
+Pro tento případ jsme vytvořili několik ROS 2 uzlů (v C++), které komunikují\break s PX4 firmware pomocí Fast RTPS, nebo pomocí MAVLink protokolu a řídí let dronu. Zdrojový kód je zveřejněný na platformě GitHub \cite{GIT}.
 
-Pro ovládání dronu z palubního počítače musí mít dron aktivovaný \textit{offboard flight mode} (mimopalubní letový režim).
+Jsme přesvědčeni, že komunikace mezi ROS 2 a PX4 pomocí \acs{RTPS} (\acs{DDS}) middleware bude velmi vhodný přístup v budoucnu, ale v na základě práce s \acs{RTPS} jsme usoudili, že kvůli chybějící dokumentaci k zprávám \textit{uORB} a kvůli chybám v komunikaci při simulaci víc bezpilotních letadel najednou bude komunikace pomocí Mavrosu v této chvíli lepší varianta. Z toho důvodu budou další kapitoly práce zaměřené na Mavros, jako hlavní komunikační middleware mezi ROS 2 a PX4.
 
-\section{Offboard flight mode}
+\section{Offboard letový režim}
 
-\textit{Offboard flight mode} se využívá vždy, když je dron řízený z jiného zdroje, než z Pixhawk řídící jednotky (PX4 firmware), například z palubního počítače. 
+\textit{Offboard flight mode} se využívá vždy, když je dron řízený z jiného zdroje, než\break z Pixhawk řídící jednotky (PX4 firmware), například z palubního počítače. 
 
-V \textit{offboard} letovém režimu se dronu posílají hlavě zprávy pro let na definovanou pozici (absolutní nebo relativní), let určitým azimutem a rychlostí, nebo zprávy definující zrychlení dronu ve všech osách. Je vhodné, aby se pro kritické operace jako jsou vzlet, přistání, návrat na startovací pozici (\textit{Return to Launch}) využívali odpovídající letecké režimy řídící jednotky Pixhawk.
+V \textit{offboard} letovém režimu se dronu posílají zprávy pro let na definovanou pozici (absolutní nebo relativní), let určitým azimutem a rychlostí, nebo zprávy definující zrychlení dronu ve všech osách. Je vhodné, aby se pro kritické operace jako jsou vzlet, přistání, návrat na startovací pozici (\textit{Return to Launch}) využívali odpovídající letecké režimy řídící jednotky Pixhawk.
 
-Aby zůstal \textit{offboard} letový režim aktivní, palubní počítač musí posílat zprávy o aktivitě módu (\texttt{OffboardControlMode message}) s frekvencí > 2 Hz.
+Aby zůstal \textit{offboard} letový režim aktivní, palubní počítač musí posílat zprávy\break o aktivitě módu (\texttt{OffboardControlMode message}) s frekvencí > 2 Hz.
 
-V případě poruchy palubního počítače, nebo nedostatečné rychlosti posílání zpráv se \textit{offboard} letový režim vypne a bude aktivovaný předem bezpečný, definovaný letový režim, například \textit{land} letový režim, takže dron přistane na daném místě. \cite{PX4docs}
+V případě poruchy palubního počítače nebo nedostatečné rychlosti posílání zpráv se \textit{offboard} letový režim vypne a bude aktivovaný předem bezpečný, definovaný letový režim, například \textit{land} letový režim, takže dron přistane na daném místě. \cite{PX4docs}
 
 \section{Struktura robotické mise}
 
-Jedním z cílů práce je navrhnout a implementovat ukázkovou robotickou misi pro autonomní létání dronů. V této kapitole se budeme zabývat námi implementovaným řešením robotické mise.
+Jedním z cílů práce je navrhnout a implementovat ukázkovou robotickou misi\break pro autonomní létání dronů. V této kapitole se budeme zabývat námi implementovaným řešením robotické mise.
 
 \subsection{Základní funkce dronu}
 
@@ -30,7 +30,7 @@ Dron je možné povelovat pomocí následujících funkcí, které jsou implemen
 
 \subsubsection{Funkce \texttt{arm}}
 
-Funkce \texttt{arm} slouží k přepnutí dronu do \textit{arm} stavu, v kterém jsou motory aktivní a dron je schopen letu. Mimo tohoto stavu není možné dron ovládat. 
+Funkce \texttt{arm} slouží k přepnutí dronu do \textit{arm} stavu, v kterém jsou motory aktivní\break a dron je schopen letu. Mimo tohoto stavu není možné dron ovládat. 
 
 \subsubsection{Funkce \texttt{disarm}}
 
@@ -50,7 +50,7 @@ Funkce \texttt{preFlightCheck} nastaví parametry PX4, které jsou nezbytné pro
 
 \subsubsection{Funkce \texttt{publish\_traj\_setp\_position}}
 
-Funkce \texttt{publish\_traj\_setp\_position} posílá do dronu \textit{setpoint} pro \textit{offboard} mód s relativní pozicí dronu vůči startovacímu místu. Když je dron přepnutý do \textit{offboard} módu a posíláme dronu setpointy s relativní pozicí, tak musí být tato funkce volána s frekvencí > 2 Hz.
+Funkce \texttt{publish\_traj\_setp\_position} posílá do dronu \textit{setpoint} pro \textit{offboard} mód\break s relativní pozicí dronu vůči startovacímu místu. Když je dron přepnutý do \textit{offboard} módu a posíláme dronu setpointy s relativní pozicí, tak musí být tato funkce volána s frekvencí > 2 Hz.
 
 \subsubsection{Funkce \texttt{publish\_traj\_setp\_speed}}
 
@@ -109,7 +109,7 @@ Tabulka \ref{tab:pubsub} zobrazuje a popisuje všechny ROS 2 \textit{publishery}
 
 Všechny námi implementované robotické mise mají stejnou základní strukturu algoritmu. Pro řízení mise je využitý jeden hlavní stavový automat, který ovládá všechny úkony od vzletu až po ukončení mise.
 
-Kromě vzletu, kde je použitý \textit{take off} letový režim je v celé robotické misi využíván \textit{offboard} letový režim, v kterém dron vykonává všechny další úkony. Podle typu robotické mise řídící systém posílá dronu v \textit{offboard} letovém režimu lokální nebo globální poziční waypointy, nebo rychlostní setpointy.
+Kromě vzletu, kde je použitý \textit{take off} letový režim je v celé robotické misi využíván \textit{offboard} letový režim, v kterém dron vykonává všechny další úkony. Podle typu robotické mise řídící systém posílá dronu v \textit{offboard} letovém režimu lokální nebo globální poziční waypointy nebo rychlostní setpointy.
 
 \subsection{Stavový automat pro řízení mise}
 
@@ -183,7 +183,7 @@ Dron se vznáší v \textit{offboard} letovém režimu na místě, kde byla ukon
 
 Dron v \textit{offboard} letovém režimu vykonává jednotlivé úkony robotické mise. Nadřazený ROS 2 uzel pro řízení mise posílá dronu buď poziční waypointy (lokální nebo globální), nebo řídí přímo lineární rychlosti v osách \textit{X}, \textit{Y}, \textit{Z} a rychlost rotace kolem osy \textit{Z}.
 
-\noindent\textbf{Podmínka přechodu:} Nadřazený uzel pro řízení mise již nepřímá data pro let dronu (po určitou dobu definovanou uživatelem), nebo dron vykoná všechny úkony robotické mise.
+\noindent\textbf{Podmínka přechodu:} Nadřazený uzel pro řízení mise již nepřímá data pro let dronu (po určitou dobu definovanou uživatelem) nebo dron vykoná všechny úkony robotické mise.
 
 \subsubsection{Stav 10: Přepnutí do \textit{hold} režimu}
 
@@ -193,5 +193,5 @@ Dron se v tomto stavu vznáší v \textit{offboard} letovém režimu na místě,
 
 \subsubsection{Stav 11: Konec mise}
 
-Pilot dronu přistává, nebo zahajuje další autonomní misi.
+Pilot dronu přistává nebo zahajuje další autonomní misi.
 

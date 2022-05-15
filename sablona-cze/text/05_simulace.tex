@@ -1,6 +1,6 @@
 \chapter{Simulace ve virtuálním prostředí}
 
-Simulátory umožňují letovému kódu PX4 ovládat počítačem namodelovaný dron v simulovaném \uv{světě}. S tímto dronem je možné komunikovat stejně jako se skutečným dronem pomocí software QGroundControl, \textit{offboard} API nebo rádiového ovladače/gamepadu. 
+Simulátory umožňují letovému kódu PX4 ovládat počítačem namodelovaný dron\break v simulovaném \uv{světě}. S tímto dronem je možné komunikovat stejně jako se skutečným dronem pomocí software QGroundControl, \textit{offboard} API nebo rádiového ovladače/gamepadu. 
 
 PX4 podporuje jak simulaci \acs{SITL} (\textit{\acl{SITL}}), kde PX4 firmware (program řídící jednotky) běží na počítači, nebo simulaci \acs{HITL} (\textit{\acl{HITL}}), kde PX4 firmware běží na skutečné řídící jednotce a vše ostatní (fyzika reálného světa) je spuštěno na počítači. \cite{PX4docs}
 
@@ -18,7 +18,7 @@ Všechny simulátory mohou komunikovat s firmware PX4 pomocí \textit{Simulator 
 
 \textit{\acl{SITL}} simulace umožňuje rychlé a \uv{levné} ladění robotických misí, protože pro simulaci \acs{SITL} se nevyužívá žádný specializovaný hardware, ale jenom počítač s nainstalovaným simulačním prostředím.
 
-Obrázek \ref{fig:SIM2} zobrazuje typickou konfigurace simulace \acs{SITL} pro PX4 firmware a pro kterýkoliv z podporovaných simulátorů. Simulátor a PX4 firmawe mohou spolu komunikovat pomocí MAVLink \acs{API}. Pro přímou interakci s PX4 je možné využít komunikaci přes \textit{Micro-RTPS bridge}, kde se komunikují přímo uORB zprávy.
+Obrázek \ref{fig:SIM2} zobrazuje typickou konfiguraci simulace \acs{SITL} pro PX4 firmware\break a pro kterýkoliv z podporovaných simulátorů. Simulátor a PX4 firmawe mohou spolu komunikovat pomocí MAVLink \acs{API}. Pro přímou interakci s PX4 je možné využít komunikaci přes \textit{Micro-RTPS bridge}, kde se komunikují přímo uORB zprávy.
 
 Různé části simulačního prostředí spolu komunikují pomocí \acs{UDP} (\acl{UDP}) a mohou být spuštěny na stejném počítači, nebo jiném počítači ve stejné síti. Pomocí sériové komunikace je možné připojit joystick, gamepad nebo RC soupravu pro ruční ovládání simulovaného dronu přes QGroundControl.
 
@@ -61,11 +61,11 @@ Podporovaná vozidla \acs{SITL} simulace PX4 v simulátoru Gazebo jsou: \cite{GA
 
 \subsection{Ignition Gazebo}
 
-Vývojový tím simulátoru Gazebo se v budoucnu zaměří na vývoj simulátoru Ignition, takže Gazebo 11 je poslední verze známého simulátoru Gazebo. Oba simulátory jsou kompatibilní ve formátu popisu prostředí (\uv{světa}) a některých pluginů. \cite{IGN}
+Vývojový tým simulátoru Gazebo se v budoucnu zaměří na vývoj simulátoru Ignition, takže Gazebo 11 je poslední verze známého simulátoru Gazebo. Oba simulátory jsou kompatibilní ve formátu popisu prostředí (\uv{světa}) a některých pluginů. \cite{IGN}
 
 Z důvodu, že simulační firmware PX4 je v této době lépe přepojený se simulátorem Gazebo, tak v této práci budeme pracovat s simulátorem Gazebo 11.
 
-Jediné vozidlo, které je podporované \textit{\acl{SITL}} simulací PX4 v simulátoru Ignition je dron.
+Jediné vozidlo, které je podporované \textit{\acl{SITL}} simulací PX4 v simulátoru Ignition, je dron.
 
 \section{Instalace virtuálního prostředí}
 
@@ -88,7 +88,7 @@ V následujících podkapitolách si popíšeme instalaci jednotlivých částí
 
 Prvním krokem je instalace PX4 prostředí. Při reální misi (nebo \acs{HITL} simulaci) bude PX4 firmware spuštěný přímo na řídící jednotce Pixhawk. Při \acs{SITL} simulaci je nutné PX4 letový kód nainstalovat na počítač. Doporučená platforma pro PX4 prostředí je Ubuntu, ale je možné ho spustit na Windows 10 nebo na Mac OS.
 
-Samotná instalace prostředí PX4 je jednoduchá a skládá se z 2 kroků. \cite{PX4docs}
+Samotná instalace prostředí PX4 je jednoduchá a skládá se z dvou kroků. \cite{PX4docs}
 
 \begin{lstlisting}[language=bash]
 # 1. Stáhnout zdrojový kód PX4:
@@ -146,7 +146,7 @@ $ sudo apt install openjdk-11-jdk
 
 \subsubsection{Gradle}
 
-Gradle je univerzální nástroj pro sestavení software v jazycích C++, Swift, Java. V našem případě je nutný pro sestavení komunikačního \acs{RTPS} agenta.
+Gradle je univerzální nástroj pro sestavení software v jazycích C++, Swift, Java.\break V našem případě je nutný pro sestavení komunikačního \acs{RTPS} agenta.
 
 Gradle je možné nainstalovat pomocí následujících příkazů \cite{GRADLE}:
 
@@ -237,9 +237,9 @@ Pro instalaci balíčku Mavros slouží následující příkaz:
 $ sudo apt install ros-foxy-mavros
 \end{lstlisting}
 
-Pro správnou funkci balíčku Mavros je nutné doinstalovat geografický dataset (\texttt{geographiclib dataset}) který slouží na převod mezi zeměpisnými, UTM, UPS, MGRS, geocentrickými a místními kartézskými souřadnicemi, pro výpočty gravitace, výšky geoidu a geomagnetického pole a pro řešení geodetických úloh. \cite{GEOLIB}
+Pro správnou funkci balíčku Mavros je nutné doinstalovat geografický dataset (\texttt{geographiclib dataset}), který slouží na převod mezi zeměpisnými, UTM, UPS, MGRS, geocentrickými a místními kartézskými souřadnicemi, pro výpočty gravitace, výšky geoidu a geomagnetického pole a pro řešení geodetických úloh. \cite{GEOLIB}
 
-K tomu slouží následující přikazy:
+K tomu slouží následující příkazy:
 
 \begin{lstlisting}[language=bash]
 $ wget https://raw.githubusercontent.com/mavlink/mavros\
